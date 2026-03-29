@@ -1,0 +1,58 @@
+---
+- name: Generate mail.rc
+  become: true
+  ansible.builtin.copy:
+    src: mail.rc
+    dest: /etc/mail.rc
+    group: root
+    mode: "0644"
+    owner: root
+  notify: Test notifications
+- name: Generate Aliases
+  become: true
+  ansible.builtin.template:
+    src: aliases.j2
+    dest: /etc/aliases
+    group: root
+    mode: "0644"
+    owner: root
+  notify: Test notifications
+- name: Generate msmtprc
+  become: true
+  ansible.builtin.template:
+    src: msmtprc.j2
+    dest: /etc/msmtprc
+    group: root
+    mode: "0600"
+    owner: root
+  notify: Test notifications
+- name: Mailrise config
+  become: true
+  ansible.builtin.template:
+    dest: /etc/mailrise.conf
+    group: 999
+    mode: "0640"
+    owner: 999
+    src: mailrise.conf.j2
+  notify:
+    - Restart mailrise
+    - Test notifications
+- name: Create a Quadlet file
+  become: true
+  containers.podman.podman_container:
+    name: mailrise
+    image: ghcr.io/yoryan/mailrise@{{ mailrise_digest }}
+    state: quadlet
+    quadlet_filename: mailrise-container
+    network: "{{ default_podman_interface }}"
+    publish:
+      - "127.0.0.1:{{ mailrise_port }}:{{ mailrise_port }}"
+    user: 999:999
+    volumes:
+      - /etc/mailrise.conf:/etc/mailrise.conf:ro,z
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for mailrise
+    - Restart mailrise
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

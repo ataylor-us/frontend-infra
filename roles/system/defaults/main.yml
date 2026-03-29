@@ -1,0 +1,17 @@
+---
+packages:
+  - base-devel
+  - git
+  - htop
+  - rsync
+  - curl
+  - wget
+  - smartmontools
+  - cronie
+  - bash-completion
+  - which
+  - man-db
+enabled_services:
+  - sshd
+  - smartd
+  - cronie

@@ -1,0 +1,9 @@
+---
+- name: Set NNN_OPTS in bashrc
+  ansible.builtin.lineinfile:
+    path: "~/.bashrc"
+    regexp: "^export NNN_OPTS="
+    line: 'export NNN_OPTS="dH"'
+    mode: "0664"
+    create: true
+    state: present

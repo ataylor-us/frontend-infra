@@ -1,0 +1,5 @@
+---
+packages:
+  - ufw
+enabled_services:
+  - ufw.service

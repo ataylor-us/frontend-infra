@@ -1,0 +1,62 @@
+---
+- name: Ensure Neovim is the default editor
+  ansible.builtin.lineinfile:
+    path: "~/.bashrc"
+    regexp: "^export EDITOR="
+    line: 'export EDITOR="nvim"'
+    mode: "0664"
+    create: true
+    state: present
+- name: Set vi mode for bash
+  ansible.builtin.lineinfile:
+    path: "~/.bashrc"
+    line: "set -o vi"
+    mode: "0664"
+    create: true
+    state: present
+- name: Create neovim config directory
+  ansible.builtin.file:
+    group: "{{ group }}"
+    mode: "0755"
+    owner: "{{ username }}"
+    path: "~/.config/nvim"
+    state: directory
+- name: Copy neovim config
+  ansible.builtin.copy:
+    src: init.vim
+    dest: ~/.config/nvim/init.vim
+    group: "{{ group }}"
+    mode: "0644"
+    owner: "{{ username }}"
+- name: Set global EDITOR
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    regexp: "^EDITOR="
+    line: "EDITOR=nvim"
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+- name: Set global VISUAL
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    regexp: "^VISUAL="
+    line: "VISUAL=nvim"
+    create: true
+    owner: root
+    group: root
+    mode: "0644"
+- name: Copy editor scripts
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - vi
+    - view
+    - vim

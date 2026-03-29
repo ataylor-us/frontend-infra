@@ -1,0 +1,7 @@
+---
+packages:
+  - nfs-utils
+aur_packages:
+  - autofs
+enabled_services:
+  - autofs

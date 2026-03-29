@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+listen.port:
+  - {{ mailrise_port }}
+tls.mode:
+  - none
+configs:
+  {{ inventory_hostname }}@{{ mailrise_domain }}:
+    urls:
+      - pover://{{ pushover_user_key }}@{{ pushover_application_key | default(pushover_generic_application_key) }}

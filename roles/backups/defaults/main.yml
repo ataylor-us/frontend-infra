@@ -1,0 +1,9 @@
+---
+packages:
+  - borg
+  - borgmatic
+  - lz4
+  - sqlite
+masked_services:
+  - borgmatic.service
+  - borgmatic.timer
