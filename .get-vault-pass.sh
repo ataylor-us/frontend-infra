@@ -1,2 +1,2 @@
 #!/bin/sh
-pass vault-pass
+pass frontend-vault-pass
