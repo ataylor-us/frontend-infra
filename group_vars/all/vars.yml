@@ -1,0 +1,19 @@
+---
+ssh_key_name: "id_ed25519"
+tailscale_authkey: "dummy"
+username: alex
+group: alex
+podman_data_dir: "/var/opt"
+default_quadlet_options:
+  - AutoUpdate=registry
+  - Pull=missing
+  - |
+    [Unit]
+    After=network-online.target nss-lookup.target
+
+    [Service]
+    Restart=always
+
+    [Install]
+    WantedBy=default.target
+default_podman_interface: "podman1"

@@ -1,0 +1,118 @@
+---
+- name: Set the hostname
+  when: domain_name is defined
+  become: true
+  ansible.builtin.hostname:
+    name: "{{ domain_name }}"
+- name: Set timezone to America/New_York
+  become: true
+  community.general.timezone:
+    name: America/New_York
+- name: Remove mail_badpass from sudoers
+  ansible.builtin.replace:
+    group: root
+    mode: "0440"
+    owner: root
+    path: /etc/sudoers
+    regexp: (^Defaults.*mail_badpass$)|(\,mail_badpass)
+    replace: ""
+    validate: /usr/sbin/visudo -cf %s
+  become: true
+- name: Adding pwfeedback
+  ansible.builtin.copy:
+    content: |
+      Defaults        pwfeedback
+    dest: /etc/sudoers.d/02-pwfeedback
+    group: root
+    mode: "0440"
+    owner: root
+    validate: /usr/sbin/visudo -cf %s
+  become: true
+- name: Ensure /root/.ssh exists
+  become: true
+  ansible.builtin.file:
+    path: /root/.ssh
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+- name: Set up root SSH key
+  become: true
+  block:
+    - name: Copy root private key
+      ansible.builtin.copy:
+        src: "{{ inventory_hostname }}/vault_{{ ssh_key_name }}"
+        dest: "/root/.ssh/{{ ssh_key_name }}"
+        owner: root
+        group: root
+        mode: "0600"
+    - name: Copy root public key
+      ansible.builtin.template:
+        src: "{{ inventory_hostname }}/{{ ssh_key_name }}.pub.j2"
+        dest: "/root/.ssh/{{ ssh_key_name }}.pub"
+        owner: root
+        group: root
+        mode: "0644"
+  rescue:
+    - name: Generate root keys
+      community.crypto.openssh_keypair:
+        path: "/root/.ssh/{{ ssh_key_name }}"
+        type: ed25519
+        owner: root
+        group: root
+        comment: "root@{{ inventory_hostname }}"
+# Taken from https://github.com/cisagov/ansible-role-persist-journald
+- name: >-
+    Ensure that the directory where the systemd-journald drop-in will
+    live actually exists
+  become: true
+  ansible.builtin.file:
+    group: root
+    mode: u=rwx,g=rx,o=rx
+    owner: root
+    path: /etc/systemd/journald.conf.d
+    state: directory
+- name: Configure systemd-journald to persist storage
+  become: true
+  community.general.ini_file:
+    group: root
+    mode: u=rw,g=r,o=r
+    # This is just to maintain the look and feel of the
+    # /etc/systemd/journald.conf file as provided by systemd-journald.
+    no_extra_spaces: true
+    option: Storage
+    owner: root
+    path: /etc/systemd/journald.conf.d/99-ansible-role-persist-journald.conf
+    section: Journal
+    value: persistent
+  notify:
+    - Restart systemd-journald
+- name: Configure smartd
+  become: true
+  ansible.builtin.copy:
+    src: smartd.conf
+    dest: /etc/smartd.conf
+    owner: root
+    group: root
+    mode: "0644"
+- name: Create the `aur_builder` user
+  become: true
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: true
+    group: wheel
+- name: Allow the `aur_builder` user to run `sudo pacman` without a password
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: true
+    mode: "0644"
+    validate: "visudo -cf %s"
+- name: Install yay using makepkg
+  kewlfft.aur.aur:
+    name: yay
+    use: makepkg
+    state: present
+  become: true
+  become_user: aur_builder

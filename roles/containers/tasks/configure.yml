@@ -1,0 +1,31 @@
+---
+- name: Create podman data directory
+  become: true
+  ansible.builtin.file:
+    group: root
+    mode: "0755"
+    owner: root
+    path: "{{ podman_data_dir }}"
+    state: directory
+- name: Ensure podman network is created
+  become: true
+  containers.podman.podman_network:
+    name: "{{ default_podman_interface }}"
+    state: present
+- name: Ensure podman network is created
+  become: true
+  containers.podman.podman_network:
+    name: "{{ default_podman_interface }}"
+    state: present
+- name: Allow all traffic on default interface
+  become: true
+  community.general.ufw:
+    rule: allow
+    interface_in: "{{ default_podman_interface }}"
+- name: Allow forwarding to default interface
+  become: true
+  community.general.ufw:
+    rule: allow
+    route: true
+    interface_in: "{{ default_podman_interface }}"
+    interface_out: "{{ ansible_facts['default_ipv4']['interface'] }}"
