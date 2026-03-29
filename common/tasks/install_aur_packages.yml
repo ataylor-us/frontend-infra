@@ -1,0 +1,8 @@
+---
+- name: Install AUR packages using yay
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name: "{{ aur_packages }}"
+    state: present
+    use: yay

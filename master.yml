@@ -12,3 +12,4 @@
       when: "'staging' not in group_names"
     - notifications
     - file_manager
+    - mounts
