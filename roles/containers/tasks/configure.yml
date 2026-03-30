@@ -12,11 +12,6 @@
   containers.podman.podman_network:
     name: "{{ default_podman_interface }}"
     state: present
-- name: Ensure podman network is created
-  become: true
-  containers.podman.podman_network:
-    name: "{{ default_podman_interface }}"
-    state: present
 - name: Allow all traffic on default interface
   become: true
   community.general.ufw:

@@ -8,7 +8,7 @@ ansible-playbook master.yml -e tailscale_authkey=`#key`
 
 ## Installation
 
-Select Minimal packages & choose NetworkManager during installation. chroot in after installing and enable the sshd service.
+Use linux-lts kernel. Select Minimal packages & choose NetworkManager during installation. chroot in after installing and enable the sshd service.
 
 Base packages:
 ```json
