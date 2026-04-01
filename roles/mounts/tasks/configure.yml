@@ -1,1 +1,19 @@
 ---
+- name: Configure auto.master
+  become: true
+  ansible.builtin.template:
+    src: auto.master.j2
+    dest: /etc/autofs/auto.master
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart autofs
+- name: Configure auto.misc
+  become: true
+  ansible.builtin.template:
+    src: auto.misc.j2
+    dest: /etc/autofs/auto.misc
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart autofs
