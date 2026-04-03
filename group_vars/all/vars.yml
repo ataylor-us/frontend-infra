@@ -9,7 +9,7 @@ default_quadlet_options:
   - Pull=missing
   - |
     [Unit]
-    After=network-online.target nss-lookup.target
+    After=network-online.target nss-lookup.target autofs.service
 
     [Service]
     Restart=always
@@ -17,4 +17,3 @@ default_quadlet_options:
     [Install]
     WantedBy=default.target
 default_podman_interface: "podman1"
-autofs_mounts: []
