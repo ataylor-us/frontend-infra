@@ -13,3 +13,4 @@
     - notifications
     - file_manager
     - mounts
+    - reverse_proxy
