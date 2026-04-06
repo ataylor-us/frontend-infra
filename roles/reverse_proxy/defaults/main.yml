@@ -1,0 +1,5 @@
+---
+packages:
+  - caddy
+enabled_services:
+  - caddy.service
