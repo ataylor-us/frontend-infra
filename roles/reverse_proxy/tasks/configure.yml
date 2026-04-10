@@ -6,3 +6,12 @@
     regexp: "^TS_PERMIT_CERT_UID="
     line: "TS_PERMIT_CERT_UID=caddy"
   notify: Restart tailscaled
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+    group: caddy
+    mode: "0640"
+    owner: caddy
+  notify: Restart caddy

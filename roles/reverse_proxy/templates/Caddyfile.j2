@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+{% if tailscale_domain is defined %}
+(tailscale) {
+	tls {
+		get_certificate tailscale
+	}
+}
+
+http://{{ tailscale_domain }} {
+	redir https://{{ tailscale_domain }}{uri}
+}
+
+https://{{ tailscale_domain }} {
+	import tailscale
+}
+
+import conf.d/*
+{% endif %}
