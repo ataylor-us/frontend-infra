@@ -10,9 +10,6 @@ http://{{ tailscale_domain }} {
 	redir https://{{ tailscale_domain }}{uri}
 }
 
-https://{{ tailscale_domain }} {
-	import tailscale
-	import conf.d/*
-}
+import conf.d/*
 
 {% endif %}
