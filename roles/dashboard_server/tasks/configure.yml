@@ -1,0 +1,60 @@
+---
+- name: Create config directory
+  become: true
+  ansible.builtin.file:
+    group: "{{ unas_gid }}"
+    mode: "0755"
+    owner: "{{ unas_uid }}"
+    path: "{{ podman_data_dir }}/homer/config"
+    state: directory
+- name: Create a Quadlet file
+  become: true
+  containers.podman.podman_container:
+    name: homer
+    image: docker.io/b4bz/homer:{{ homer_version }}
+    state: quadlet
+    quadlet_filename: homer-container
+    network: "{{ default_podman_interface }}"
+    publish:
+      - "127.0.0.1:{{ homer_port }}:8080"
+    volumes:
+      - "{{ podman_data_dir }}/homer/config:/www/assets:rw"
+    user: "{{ unas_uid }}:{{ unas_gid }}"
+    env:
+      TZ: America/New_York
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for homer
+    - Restart homer
+- name: Copy homer config
+  become: true
+  ansible.builtin.template:
+    dest: "{{ podman_data_dir }}/homer/config/config.yml"
+    group: "{{ unas_gid }}"
+    mode: "0644"
+    owner: "{{ unas_uid }}"
+    src: config.yml.j2
+  notify:
+    - Reload systemd for homer
+    - Restart homer
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/conf.d/homer.Caddyfile
+    group: caddy
+    mode: "0644"
+    owner: caddy
+  notify:
+    - Reload systemd for homer
+    - Restart homer
+- name: Copy borgmatic config
+  become: true
+  ansible.builtin.template:
+    dest: /etc/borgmatic.d/homer.yaml
+    group: root
+    mode: "0600"
+    owner: root
+    src: borgmatic.yaml.j2
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

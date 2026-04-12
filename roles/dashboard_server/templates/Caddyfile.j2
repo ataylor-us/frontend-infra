@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+https://{{ tailscale_domain }} {
+  import tailscale
+  reverse_proxy localhost:{{ homer_port }}
+}

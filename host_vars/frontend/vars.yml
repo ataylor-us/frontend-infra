@@ -1,4 +1,6 @@
 ---
+unas_uid: 977
+unas_gid: 988
 autofs_mounts:
   - name: immich_upload
     fstype: cifs
