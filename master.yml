@@ -14,3 +14,5 @@
     - file_manager
     - mounts
     - reverse_proxy
+    - dashboard_server
+    - file_sync_server

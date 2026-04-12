@@ -1,0 +1,6 @@
+---
+homer_version: latest
+homer_port: 8080
+enabled_services:
+  - homer-container.service
+  - caddy.service
