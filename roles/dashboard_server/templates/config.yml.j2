@@ -10,3 +10,10 @@ services:
         subtitle: "File sync"
         url: "https://{{ tailscale_domain }}:{{ syncthing_external_port }}"
         target: "_blank"
+  - name: "Finance"
+    icon: "fas fa-wallet"
+    items:
+      - name: "Actual"
+        subtitle: "Budget"
+        url: "https://{{ tailscale_domain }}:{{ actual_external_port }}"
+        target: "_blank"
