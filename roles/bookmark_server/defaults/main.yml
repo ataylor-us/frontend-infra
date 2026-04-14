@@ -1,0 +1,11 @@
+---
+karakeep_port: 3000
+karakeep_external_port: 10006
+karakeep_meilisearch_version: v1.13.3
+karakeep_server_version: 0.31.0
+karakeep_chrome_version: 124
+enabled_services:
+  - karakeep-server-container.service
+  - karakeep-chrome-container.service
+  - karakeep-meilisearch-container.service
+  - caddy.service

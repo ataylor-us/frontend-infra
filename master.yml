@@ -19,3 +19,7 @@
     - budget_server
     - recipe_server
     - feed_server
+    - photo_server
+    - bookmark_server
+    - document_server
+    - version_control_server
