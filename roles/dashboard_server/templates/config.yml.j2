@@ -1,14 +1,35 @@
 ---
-title: "{{ ansible_hostname }}"
+title: "{{ ansible_facts['hostname'] }}"
 footer: false
 
 services:
+  - name: "Development"
+    icon: "fas fa-code-branch"
+    items:
+      - name: "Forgejo"
+        subtitle: "Git"
+        url: "https://{{ tailscale_domain }}:{{ forgejo_external_port }}"
+        target: "_blank"
   - name: "Files"
     icon: "fas fa-folder-open"
     items:
       - name: "Syncthing"
         subtitle: "File sync"
         url: "https://{{ tailscale_domain }}:{{ syncthing_external_port }}"
+        target: "_blank"
+  - name: "Photos"
+    icon: "fas fa-camera"
+    items:
+      - name: "Immich"
+        subtitle: "Photo library"
+        url: "https://{{ tailscale_domain }}:{{ immich_external_port }}"
+        target: "_blank"
+  - name: "Bookmarks"
+    icon: "fas fa-bookmark"
+    items:
+      - name: "Karakeep"
+        subtitle: "Bookmarks"
+        url: "https://{{ tailscale_domain }}:{{ karakeep_external_port }}"
         target: "_blank"
   - name: "Reading"
     icon: "fas fa-rss"
@@ -23,6 +44,13 @@ services:
       - name: "Mealie"
         subtitle: "Recipes"
         url: "https://{{ tailscale_domain }}:{{ mealie_external_port }}"
+        target: "_blank"
+  - name: "Documents"
+    icon: "fas fa-file-alt"
+    items:
+      - name: "Paperless"
+        subtitle: "Document manager"
+        url: "https://{{ tailscale_domain }}:{{ paperless_external_port }}"
         target: "_blank"
   - name: "Finance"
     icon: "fas fa-wallet"
