@@ -1,0 +1,7 @@
+---
+mealie_port: 9000
+mealie_external_port: 10003
+mealie_version: v3.14.0
+enabled_services:
+  - mealie-container.service
+  - caddy.service
