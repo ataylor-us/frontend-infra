@@ -18,3 +18,4 @@
     - file_sync_server
     - budget_server
     - recipe_server
+    - feed_server

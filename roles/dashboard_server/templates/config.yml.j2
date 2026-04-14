@@ -10,6 +10,13 @@ services:
         subtitle: "File sync"
         url: "https://{{ tailscale_domain }}:{{ syncthing_external_port }}"
         target: "_blank"
+  - name: "Reading"
+    icon: "fas fa-rss"
+    items:
+      - name: "FreshRSS"
+        subtitle: "Feed reader"
+        url: "https://{{ tailscale_domain }}:{{ freshrss_external_port }}"
+        target: "_blank"
   - name: "Food"
     icon: "fas fa-utensils"
     items:

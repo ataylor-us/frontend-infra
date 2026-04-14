@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+https://{{ tailscale_domain }}:{{ freshrss_external_port }} {
+  import tailscale
+  reverse_proxy localhost:{{ freshrss_port }}
+}
