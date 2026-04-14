@@ -17,3 +17,4 @@
     - dashboard_server
     - file_sync_server
     - budget_server
+    - recipe_server

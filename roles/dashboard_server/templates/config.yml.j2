@@ -10,6 +10,13 @@ services:
         subtitle: "File sync"
         url: "https://{{ tailscale_domain }}:{{ syncthing_external_port }}"
         target: "_blank"
+  - name: "Food"
+    icon: "fas fa-utensils"
+    items:
+      - name: "Mealie"
+        subtitle: "Recipes"
+        url: "https://{{ tailscale_domain }}:{{ mealie_external_port }}"
+        target: "_blank"
   - name: "Finance"
     icon: "fas fa-wallet"
     items:
