@@ -26,8 +26,6 @@
   notify:
     - Reload systemd for actual
     - Restart actual
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
 - name: Generate Caddyfile
   become: true
   ansible.builtin.template:
