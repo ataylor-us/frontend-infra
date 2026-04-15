@@ -6,7 +6,7 @@
     dest: /etc/autofs/auto.master
     owner: root
     group: root
-    mode: "0644"
+    mode: "0600"
   notify: Restart autofs
 - name: Configure auto.misc
   become: true
@@ -15,7 +15,7 @@
     dest: /etc/autofs/auto.misc
     owner: root
     group: root
-    mode: "0644"
+    mode: "0600"
   notify: Restart autofs
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
