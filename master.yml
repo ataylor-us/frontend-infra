@@ -8,18 +8,26 @@
     - firewall
     - containers
     - terminal
-    - role: artis3n.tailscale.machine
-      when: "'staging' not in group_names"
+    - artis3n.tailscale.machine
     - notifications
     - file_manager
     - mounts
     - reverse_proxy
-    - dashboard_server
-    - file_sync_server
-    - budget_server
-    - recipe_server
-    - feed_server
-    - photo_server
-    - bookmark_server
-    - document_server
-    - version_control_server
+    - role: dashboard_server
+      tags: homer
+    - role: file_sync_server
+      tags: syncthing
+    - role: budget_server
+      tags: actual
+    - role: recipe_server
+      tags: mealie
+    - role: feed_server
+      tags: freshrss
+    - role: photo_server
+      tags: immich
+    - role: bookmark_server
+      tags: karakeep
+    - role: document_server
+      tags: paperless
+    - role: version_control_server
+      tags: forgejo
