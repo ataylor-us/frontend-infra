@@ -4,5 +4,5 @@ unas_gid: 988
 autofs_mounts:
   - name: paperless_consume
     fstype: cifs
-    remote: "://{{ unas_ip }}/paperless_consume"
+    remote: "://{{ unas_ip2 }}/paperless_consume"
     options: "username=paperless,password={{ paperless_smb_password }},uid=1000,gid=1000,file_mode=0644,dir_mode=0755,rw"
