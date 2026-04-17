@@ -4,6 +4,7 @@
   roles:
     - system
     - editor
+    - mounts
     - backups
     - firewall
     - containers
@@ -11,5 +12,4 @@
     - artis3n.tailscale.machine
     - notifications
     - file_manager
-    - mounts
     - reverse_proxy
