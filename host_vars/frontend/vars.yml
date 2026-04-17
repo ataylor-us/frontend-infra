@@ -1,6 +1,7 @@
 ---
 unas_uid: 977
 unas_gid: 988
+lan_borg_repo: "{{ unas2_ip }}:/var/nfs/shared/borg"
 autofs_mounts:
   - name: paperless_consume
     fstype: cifs
