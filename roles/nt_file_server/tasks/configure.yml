@@ -1,0 +1,44 @@
+---
+- name: Create epson user
+  become: true
+  ansible.builtin.user:
+    name: epson
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    password: "!"
+    password_lock: true
+- name: Create gamepc user
+  become: true
+  ansible.builtin.user:
+    name: gamepc
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+    password: "!"
+    password_lock: true
+- name: Ensure /srv/shares is owned by root
+  become: true
+  ansible.builtin.file:
+    path: /srv/shares
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: /etc/borgmatic.d/shares.yaml
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2
+- name: Allow Samba to IoT network
+  become: true
+  community.general.ufw:
+    rule: allow
+    src: "{{ iot_network }}"
+    port: "445"
+    proto: tcp
+    comment: Allow Samba to IoT network

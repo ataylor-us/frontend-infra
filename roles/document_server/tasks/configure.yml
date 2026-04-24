@@ -1,4 +1,12 @@
 ---
+- name: Ensure paperless consume directory exists
+  become: true
+  ansible.builtin.file:
+    path: /srv/shares/paperless_consume
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    mode: "0755"
 - name: Create config directories
   become: true
   ansible.builtin.file:
@@ -78,7 +86,7 @@
       - "{{ podman_data_dir }}/paperless-server/data:/usr/src/paperless/data:rw,z"
       - "{{ podman_data_dir }}/paperless-server/media:/usr/src/paperless/media:rw,z"
       - "{{ podman_data_dir }}/paperless-server/export:/usr/src/paperless/export:rw,z"
-      - /misc/paperless_consume:/usr/src/paperless/consume:rw,z,slave
+      - /srv/shares/paperless_consume:/usr/src/paperless/consume:rw,z,slave
     env:
       PAPERLESS_REDIS: redis://paperless-redis:6379
       PAPERLESS_SECRET_KEY: "{{ paperless_secret_key }}"
@@ -89,9 +97,7 @@
       PAPERLESS_TIKA_ENABLED: "1"
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
-      PAPERLESS_CONSUMER_POLLING: 60
-      PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: 5
-      PAPERLESS_CONSUMER_POLLING_DELAY: 30
+      PAPERLESS_CONSUMER_POLLING: 0
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for paperless

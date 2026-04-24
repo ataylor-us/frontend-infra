@@ -2,8 +2,26 @@
 unas_uid: 977
 unas_gid: 988
 lan_borg_repo: "{{ unas2_ip }}:/var/nfs/shared/borg"
-autofs_mounts:
+autofs_mounts: []
+samba_shares:
   - name: paperless_consume
-    fstype: cifs
-    remote: "://{{ unas2_ip }}/paperless_consume"
-    options: "username=paperless,password={{ paperless_smb_password }},uid=1000,gid=1000,file_mode=0644,dir_mode=0755,rw"
+    comment: Paperless consume
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    directory_mode: "0755"
+    valid_users: epson
+    write_list: epson
+    user: "{{ username }}"
+  - name: ludusavi
+    comment: Game save backups
+    owner: "{{ username }}"
+    group: "{{ group }}"
+    directory_mode: "0755"
+    valid_users: gamepc
+    write_list: gamepc
+    user: "{{ username }}"
+samba_users:
+  - name: epson
+    password: "{{ epson_smb_password }}"
+  - name: gamepc
+    password: "{{ gamepc_smb_password }}"
