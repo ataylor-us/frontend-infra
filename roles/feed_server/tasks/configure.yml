@@ -22,7 +22,7 @@
     env:
       PUID: 1000
       PGID: 1000
-      TZ: America/New_York
+      TZ: "{{ timezone }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for freshrss

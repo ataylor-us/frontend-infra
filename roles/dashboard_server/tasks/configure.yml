@@ -21,7 +21,7 @@
       - "{{ podman_data_dir }}/homer/config:/www/assets:rw"
     user: "{{ unas_uid }}:{{ unas_gid }}"
     env:
-      TZ: America/New_York
+      TZ: "{{ timezone }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for homer

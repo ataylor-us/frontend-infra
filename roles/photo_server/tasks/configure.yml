@@ -77,7 +77,7 @@
       - /etc/localtime:/etc/localtime:ro,z
       - "{{ podman_data_dir }}/immich-server:/usr/src/app/upload:rw,z"
     env:
-      TZ: America/New_York
+      TZ: "{{ timezone }}"
       DB_PASSWORD: "{{ immich_database_password }}"
       DB_USERNAME: postgres
       DB_DATABASE_NAME: immich

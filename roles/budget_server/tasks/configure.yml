@@ -16,7 +16,7 @@
     quadlet_filename: actual-container
     user: 1000:1000
     env:
-      TZ: America/New_York
+      TZ: "{{ timezone }}"
     ports:
       - 127.0.0.1:{{ actual_port }}:5006
     network: "{{ default_podman_interface }}"

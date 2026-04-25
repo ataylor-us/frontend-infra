@@ -20,7 +20,7 @@
       ALLOW_SIGNUP: "false"
       PUID: 1000
       PGID: 1000
-      TZ: America/New_York
+      TZ: "{{ timezone }}"
       BASE_URL: https://{{ tailscale_domain }}:{{ mealie_external_port }}
       OPENAI_API_KEY: "{{ mealie_openai_key }}"
       API_DOCS: "false"
