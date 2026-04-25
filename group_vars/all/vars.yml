@@ -17,3 +17,4 @@ default_quadlet_options:
     [Install]
     WantedBy=default.target
 default_podman_interface: "podman1"
+timezone: "America/New_York"
