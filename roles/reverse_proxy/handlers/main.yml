@@ -1,11 +1,11 @@
 ---
 - name: Restart tailscaled
   become: true
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: tailscaled.service
     state: restarted
 - name: Restart caddy
   become: true
-  ansible.builtin.service:
+  ansible.builtin.systemd:
     name: caddy.service
     state: restarted
