@@ -15,3 +15,4 @@ enabled_services:
   - sshd
   - smartd
   - cronie
+  - man-db.timer
