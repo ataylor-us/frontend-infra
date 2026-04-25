@@ -59,3 +59,10 @@ services:
         subtitle: "Budget"
         url: "https://{{ tailscale_domain }}:{{ actual_external_port }}"
         target: "_blank"
+  - name: "Home"
+    icon: "fas fa-house-signal"
+    items:
+      - name: "Home Assistant"
+        subtitle: "Home automation"
+        url: "https://{{ tailscale_domain }}:{{ homeassistant_external_port }}"
+        target: "_blank"

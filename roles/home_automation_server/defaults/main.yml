@@ -1,0 +1,7 @@
+---
+homeassistant_port: 8123
+homeassistant_external_port: 10009
+homeassistant_version: latest
+enabled_services:
+  - homeassistant-container.service
+  - caddy.service

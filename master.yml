@@ -34,3 +34,5 @@
       become: true
     - role: version_control_server
       tags: forgejo
+    - role: home_automation_server
+      tags: homeassistant
