@@ -18,7 +18,7 @@
     env:
       PUID: 1000
       PGID: 1000
-      TZ: America/New_York
+      TZ: "{{ timezone }}"
     volumes:
       - "{{ podman_data_dir }}/homeassistant:/config:rw,z"
     quadlet_options: "{{ default_quadlet_options }}"
