@@ -12,6 +12,7 @@
   loop: "{{ enabled_services }}"
 - name: Test notifications
   ansible.builtin.shell:
-    cmd: 'sleep 5s;echo "Testing notifications on {{ inventory_hostname }}!" | msmtp root'
+    cmd: 'set -o pipefail; sleep 5s; echo "Testing notifications on {{ inventory_hostname }}!" | msmtp root'
+    executable: /bin/bash
   become: true
   changed_when: true
