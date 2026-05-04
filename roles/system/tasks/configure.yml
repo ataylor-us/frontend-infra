@@ -64,6 +64,8 @@
 - name: Configure systemd-journald to persist storage
   ansible.builtin.include_role:
     name: persist_journald
+    apply:
+      become: true
 - name: Configure smartd
   become: true
   ansible.builtin.copy:
