@@ -10,7 +10,7 @@
     - containers
     - terminal
     - role: artis3n.tailscale.machine
-      when: "'staging' not in group_names"
+      when: "'production' in group_names"
     - notifications
     - file_manager
     - reverse_proxy
