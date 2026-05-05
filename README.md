@@ -1,9 +1,24 @@
 # Frontend
 
-My current frontend self-hosted infrastructure.  Templated from [arch-base-infra](https://github.com/ataylor-us/arch-base-infra)
+Templated from [arch-base-infra](https://github.com/ataylor-us/arch-base-infra).
 
-This box the majority of my self-hosted services, which are shared out to my devies using tailsacle (when not purely local.)
+This box has the majority of my self-hosted services, which are shared out to my devices using tailscale (when not purely local.)
 
 ```bash
-ansible-playbook master.yml
+ansible-playbook master.yml -e tailscale_authkey=`#key` -e ansible_host=`#ip`
+```
+
+## Installation
+
+Used `archinstall`.  Select linux-lts kernel. Select Minimal packages & choose NetworkManager during installation. chroot in after installing and enable the sshd service.
+
+Base packages:
+```json
+    "packages": [
+        "intel-ucode",
+        "linux-firmware",
+        "neovim",
+        "openssh",
+        "python"
+    ],
 ```
