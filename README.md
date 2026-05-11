@@ -1,4 +1,4 @@
-# Frontend
+# Frontend playbook
 
 Templated from [arch-base-infra](https://github.com/ataylor-us/arch-base-infra).
 
