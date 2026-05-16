@@ -37,3 +37,5 @@
       tags: forgejo
     - role: home_automation_server
       tags: homeassistant
+    - role: media_tracker_server
+      tags: yamtrack

@@ -59,6 +59,13 @@ services:
         subtitle: "Budget"
         url: "https://{{ tailscale_domain }}:{{ actual_external_port }}"
         target: "_blank"
+  - name: "Media"
+    icon: "fas fa-film"
+    items:
+      - name: "Yamtrack"
+        subtitle: "Media tracker"
+        url: "https://{{ tailscale_domain }}:{{ yamtrack_external_port }}"
+        target: "_blank"
   - name: "Home"
     icon: "fas fa-house-signal"
     items:
