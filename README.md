@@ -5,6 +5,7 @@ Templated from [arch-base-infra](https://github.com/ataylor-us/arch-base-infra).
 This box has the majority of my self-hosted services, which are shared out to my devices using tailscale (when not purely local.)
 
 ```bash
+ssh-copy-id `#ip`
 ansible-playbook master.yml -e tailscale_authkey=`#key` -e ansible_host=`#ip`
 ```
 
