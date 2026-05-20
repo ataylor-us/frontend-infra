@@ -11,8 +11,10 @@ packages:
   - bash-completion
   - which
   - man-db
+  - fail2ban
 enabled_services:
   - sshd
   - smartd
   - cronie
   - man-db.timer
+  - fail2ban
