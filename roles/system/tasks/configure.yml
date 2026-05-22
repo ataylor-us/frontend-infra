@@ -131,12 +131,12 @@
     - name: Patch encryptssh install script
       ansible.builtin.lineinfile:
         path: /usr/lib/initcpio/install/encryptssh
-        regexp: '11-dm-initramfs.rules'
+        regexp: "11-dm-initramfs.rules"
         state: absent
     - name: Insert netconf dropbear encryptssh hooks
       ansible.builtin.replace:
         path: /etc/mkinitcpio.conf
-        regexp: '(netconf\s+)?(dropbear\s+)?(encryptssh|encrypt)\b'
+        regexp: "(netconf\\s+)?(dropbear\\s+)?(encryptssh|encrypt)\\b"
         replace: netconf dropbear encryptssh
       notify: Rebuild initramfs
     - name: Find systemd-boot entries
@@ -147,12 +147,12 @@
     - name: Add ip= to kernel cmdline
       ansible.builtin.replace:
         path: "{{ item.path }}"
-        regexp: '^(options\b(?!.*\bip=).+)$'
-        replace: '\1 ip=:::::eth0:dhcp'
+        regexp: "^(options\\b(?!.*\\bip=).+)$"
+        replace: "\\1 ip=:::::eth0:dhcp"
       loop: "{{ boot_entries.files }}"
     - name: Update ip= on kernel cmdline
       ansible.builtin.replace:
         path: "{{ item.path }}"
-        regexp: '\bip=\S+'
-        replace: 'ip=:::::eth0:dhcp'
+        regexp: "\\bip=\\S+"
+        replace: "ip=:::::eth0:dhcp"
       loop: "{{ boot_entries.files }}"
