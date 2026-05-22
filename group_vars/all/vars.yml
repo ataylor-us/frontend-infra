@@ -18,3 +18,4 @@ default_quadlet_options:
     WantedBy=default.target
 default_podman_interface: "podman1"
 timezone: "America/New_York"
+dropbear_authorized_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwZLPWMML0VW/Uw/iVoDriAJ0XF7LupuZ7AhPa5aaTG alex@laptop-pro"

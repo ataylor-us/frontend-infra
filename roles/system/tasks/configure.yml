@@ -95,3 +95,64 @@
     state: present
   become: true
   become_user: aur_builder
+# TODO: clean this up, it works it needs to be refined
+- name: Configure dropbear for remote LUKS unlock
+  when: "'encrypted_boot' in group_names"
+  become: true
+  block:
+    - name: Install mkinitcpio packages
+      community.general.pacman:
+        name:
+          - mkinitcpio-dropbear
+          - mkinitcpio-netconf
+          - mkinitcpio-utils
+        state: present
+    - name: Ensure /etc/dropbear exists
+      ansible.builtin.file:
+        path: /etc/dropbear
+        state: directory
+        owner: root
+        group: root
+        mode: "0700"
+    - name: Generate dropbear ed25519 host key
+      ansible.builtin.command:
+        cmd: dropbearkey -t ed25519 -f /etc/dropbear/dropbear_ed25519_host_key
+        creates: /etc/dropbear/dropbear_ed25519_host_key
+      notify: Rebuild initramfs
+    - name: Write dropbear authorized key
+      ansible.builtin.copy:
+        content: "{{ dropbear_authorized_key }}\n"
+        dest: /etc/dropbear/root_key
+        owner: root
+        group: root
+        mode: "0600"
+      notify: Rebuild initramfs
+    # Workaround: encryptssh install script still references 11-dm-initramfs.rules which was removed from mkinitcpio
+    - name: Patch encryptssh install script
+      ansible.builtin.lineinfile:
+        path: /usr/lib/initcpio/install/encryptssh
+        regexp: '11-dm-initramfs.rules'
+        state: absent
+    - name: Insert netconf dropbear encryptssh hooks
+      ansible.builtin.replace:
+        path: /etc/mkinitcpio.conf
+        regexp: '(netconf\s+)?(dropbear\s+)?(encryptssh|encrypt)\b'
+        replace: netconf dropbear encryptssh
+      notify: Rebuild initramfs
+    - name: Find systemd-boot entries
+      ansible.builtin.find:
+        paths: /boot/loader/entries
+        patterns: "*.conf"
+      register: boot_entries
+    - name: Add ip= to kernel cmdline
+      ansible.builtin.replace:
+        path: "{{ item.path }}"
+        regexp: '^(options\b(?!.*\bip=).+)$'
+        replace: '\1 ip=:::::eth0:dhcp'
+      loop: "{{ boot_entries.files }}"
+    - name: Update ip= on kernel cmdline
+      ansible.builtin.replace:
+        path: "{{ item.path }}"
+        regexp: '\bip=\S+'
+        replace: 'ip=:::::eth0:dhcp'
+      loop: "{{ boot_entries.files }}"
