@@ -1,0 +1,7 @@
+---
+- name: Enable sockets
+  ansible.builtin.systemd:
+    enabled: true
+    name: "{{ item }}"
+  become: true
+  loop: "{{ enabled_sockets }}"
