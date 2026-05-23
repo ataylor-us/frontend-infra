@@ -38,6 +38,7 @@
     mode: "0700"
 - name: Set up root SSH key
   become: true
+  no_log: true
   block:
     - name: Copy root private key
       ansible.builtin.copy:
