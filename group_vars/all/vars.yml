@@ -1,5 +1,4 @@
 ---
-ssh_key_name: "id_ed25519"
 tailscale_authkey: "dummy"
 username: alex
 group: alex
