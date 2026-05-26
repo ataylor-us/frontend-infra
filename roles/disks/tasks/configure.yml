@@ -1,0 +1,9 @@
+---
+- name: Configure smartd
+  become: true
+  ansible.builtin.copy:
+    src: smartd.conf
+    dest: /etc/smartd.conf
+    owner: root
+    group: root
+    mode: "0644"

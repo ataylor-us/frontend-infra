@@ -3,6 +3,8 @@
   hosts: all
   roles:
     - system
+    - role: disks
+      when: "'vm' not in group_names"
     - editor
     - mounts
     - backups

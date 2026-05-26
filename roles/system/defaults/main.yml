@@ -6,7 +6,6 @@ packages:
   - rsync
   - curl
   - wget
-  - smartmontools
   - cronie
   - bash-completion
   - which
@@ -14,7 +13,6 @@ packages:
   - fail2ban
 enabled_services:
   - sshd
-  - smartd
   - cronie
   - man-db.timer
   - fail2ban

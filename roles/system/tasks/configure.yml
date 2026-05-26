@@ -33,14 +33,6 @@
     name: persist_journald
     apply:
       become: true
-- name: Configure smartd
-  become: true
-  ansible.builtin.copy:
-    src: smartd.conf
-    dest: /etc/smartd.conf
-    owner: root
-    group: root
-    mode: "0644"
 - name: Create the `aur_builder` user
   become: true
   ansible.builtin.user:
