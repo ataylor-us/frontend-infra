@@ -4,7 +4,7 @@
   roles:
     - system
     - role: disks
-      when: "'vm' not in group_names and 'pi' not in group_names"
+      when: "'vm' not in group_names or 'pi' not in group_names"
     - editor
     - mounts
     - backups
