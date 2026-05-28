@@ -8,4 +8,4 @@ enabled_services:
 mailrise_domain: mailrise
 mailrise_digest: "sha256:7d153e58db4038527e5c61e0e4afca9a70e398622f1b54debf57161268d78476"
 mailrise_port: 8025
-mailrise_email: "{{ inventory_hostname | replace('.', '_') | lower }}"
+mailrise_user: "{{ inventory_hostname | replace('.', '_') | lower }}"
