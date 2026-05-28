@@ -1,7 +1,7 @@
 ---
 freshrss_port: 11080
 freshrss_external_port: 10004
-freshrss_version: 1.29.0
+freshrss_version: latest
 enabled_services:
   - freshrss-container.service
   - caddy.service
