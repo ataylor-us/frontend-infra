@@ -1,0 +1,6 @@
+---
+aur_packages:
+  - openvox
+enabled_services:
+  - puppet
+puppet_environment: production

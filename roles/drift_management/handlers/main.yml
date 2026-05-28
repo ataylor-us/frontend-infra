@@ -1,0 +1,6 @@
+---
+- name: Restart puppet agent
+  become: true
+  ansible.builtin.systemd:
+    name: puppet
+    state: restarted
