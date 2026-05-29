@@ -1,0 +1,10 @@
+---
+- name: Write puppet.conf
+  become: true
+  ansible.builtin.template:
+    src: puppet.conf.j2
+    dest: /etc/puppetlabs/puppet/puppet.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart puppet agent

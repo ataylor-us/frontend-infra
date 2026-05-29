@@ -17,6 +17,7 @@
     - notifications
     - file_manager
     - reverse_proxy
+    - drift_management
     - role: dashboard_server
       tags: homer
     - role: file_sync_server
