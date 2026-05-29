@@ -12,15 +12,3 @@
   containers.podman.podman_network:
     name: "{{ default_podman_interface }}"
     state: present
-- name: Allow all traffic on default interface
-  become: true
-  community.general.ufw:
-    rule: allow
-    interface_in: "{{ default_podman_interface }}"
-- name: Allow forwarding to default interface
-  become: true
-  community.general.ufw:
-    rule: allow
-    route: true
-    interface_in: "{{ default_podman_interface }}"
-    interface_out: "{{ ansible_facts['default_ipv4']['interface'] }}"

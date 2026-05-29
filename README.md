@@ -21,3 +21,5 @@ Base packages:
         "python"
     ],
 ```
+
+Firewall rules (& drift management) is handled externally by [OpenVox](https://voxpupuli.org/openvox/).
