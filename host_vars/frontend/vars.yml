@@ -35,7 +35,6 @@ gamepc_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories
 guest_network: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/guest_network') }}"
 immich_database_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/immich_database_password') }}"
 immich_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/immich_smb_password') }}"
-iot_network: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/iot_network') }}"
 karakeep_meili_master_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/karakeep_meili_master_key') }}"
 karakeep_nextauth_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/karakeep_nextauth_secret') }}"
 karakeep_openai_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/karakeep_openai_key') }}"

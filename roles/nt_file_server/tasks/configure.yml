@@ -34,11 +34,3 @@
     mode: "0600"
     owner: root
     src: config.yaml.j2
-- name: Allow Samba to IoT network
-  become: true
-  community.general.ufw:
-    rule: allow
-    src: "{{ iot_network }}"
-    port: "445"
-    proto: tcp
-    comment: Allow Samba to IoT network

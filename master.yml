@@ -8,7 +8,6 @@
     - editor
     - mounts
     - backups
-    - firewall
     - containers
     - terminal
     - role: artis3n.tailscale.machine

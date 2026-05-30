@@ -8,27 +8,6 @@
     owner: 1000
     path: "{{ podman_data_dir }}/syncthing"
     state: directory
-- name: Allow Syncthing TCP
-  become: true
-  community.general.ufw:
-    rule: allow
-    comment: "Syncthing TCP Port"
-    proto: tcp
-    port: 22000
-- name: Allow Syncthing UDP
-  become: true
-  community.general.ufw:
-    rule: allow
-    comment: "Syncthing UDP Port"
-    proto: udp
-    port: 22000
-- name: Allow Syncthing UDP
-  become: true
-  community.general.ufw:
-    rule: allow
-    comment: "Syncthing UDP Port"
-    proto: udp
-    port: 21027
 - name: Create a Quadlet file
   become: true
   containers.podman.podman_container:

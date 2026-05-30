@@ -40,22 +40,6 @@
     - Restart homeassistant
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
-- name: Allow Home Assistant (IoT)
-  become: true
-  community.general.ufw:
-    rule: allow
-    src: "{{ iot_network }}"
-    port: "8123"
-    proto: tcp
-    comment: Home Assistant/IoT Network
-- name: Allow Home Assistant (guest)
-  become: true
-  community.general.ufw:
-    rule: allow
-    src: "{{ guest_network }}"
-    port: "8123"
-    proto: tcp
-    comment: Home Assistant/Guest Network
 - name: Copy borgmatic config
   become: true
   ignore_errors: true
