@@ -1,4 +1,5 @@
 ---
+domain_name: frontend.internal
 unas_uid: 977
 unas_gid: 988
 lan_borg_repo: "{{ unas2_ip }}:/var/nfs/shared/borg"
