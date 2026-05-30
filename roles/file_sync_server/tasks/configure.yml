@@ -15,7 +15,7 @@
     hostname: "{{ inventory_hostname }}"
     image: lscr.io/linuxserver/syncthing:{{ syncthing_version }}
     state: quadlet
-    quadlet_filename: syncthing-container
+    quadlet_filename: "{{ project_name }}-container"
     network: host
     volumes:
       - "{{ podman_data_dir }}/syncthing:/config:rw,z"
@@ -23,6 +23,9 @@
       PUID: 1000
       PGID: 1000
       TZ: "{{ timezone }}"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for syncthing
@@ -31,7 +34,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/syncthing.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -42,7 +45,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/syncthing.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

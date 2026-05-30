@@ -34,10 +34,13 @@
     name: immich-redis
     image: docker.io/valkey/valkey:{{ immich_redis_version }}
     state: quadlet
-    quadlet_filename: immich-redis-container
+    quadlet_filename: "{{ project_name }}-redis-container"
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/immich-redis:/data:rw,z"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -49,7 +52,7 @@
     name: immich-postgres
     image: ghcr.io/immich-app/postgres:{{ immich_postgres_version }}
     state: quadlet
-    quadlet_filename: immich-postgres-container
+    quadlet_filename: "{{ project_name }}-postgres-container"
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/immich-postgres:/var/lib/postgresql/data:rw,z"
@@ -58,6 +61,9 @@
       POSTGRES_USER: postgres
       POSTGRES_DB: immich
       POSTGRES_INITDB_ARGS: --data-checksums
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -69,7 +75,7 @@
     name: immich-server
     image: ghcr.io/immich-app/immich-server:{{ immich_server_version }}
     state: quadlet
-    quadlet_filename: immich-server-container
+    quadlet_filename: "{{ project_name }}-server-container"
     ports:
       - 127.0.0.1:{{ immich_port }}:2283
     network: "{{ default_podman_interface }}"
@@ -84,6 +90,9 @@
       DB_HOSTNAME: immich-postgres
       REDIS_HOSTNAME: immich-redis
       IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning:3003
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -94,10 +103,13 @@
     name: immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning:{{ immich_server_version }}
     state: quadlet
-    quadlet_filename: immich-machine-learning-container
+    quadlet_filename: "{{ project_name }}-machine-learning-container"
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/immich-machine-learning:/cache:rw,z"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -108,7 +120,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/immich.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -121,7 +133,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/immich.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

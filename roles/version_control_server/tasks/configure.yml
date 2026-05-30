@@ -21,7 +21,7 @@
     name: forgejo
     image: codeberg.org/forgejo/forgejo:{{ forgejo_version }}
     state: quadlet
-    quadlet_filename: forgejo-container
+    quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
     env:
       USE_UID: 1000
@@ -31,6 +31,9 @@
     volumes:
       - "{{ podman_data_dir }}/forgejo:/data:rw,z"
       - /etc/localtime:/etc/localtime:ro,z
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for forgejo
@@ -52,7 +55,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/forgejo.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -65,7 +68,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/forgejo.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

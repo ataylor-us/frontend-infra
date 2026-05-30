@@ -1,4 +1,5 @@
 ---
+project_name: homer
 homer_version: latest
 homer_port: 8080
 enabled_services:

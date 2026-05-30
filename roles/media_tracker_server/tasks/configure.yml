@@ -22,10 +22,13 @@
     name: yamtrack-redis
     image: docker.io/library/redis:{{ yamtrack_redis_version }}
     state: quadlet
-    quadlet_filename: yamtrack-redis-container
+    quadlet_filename: "{{ project_name }}-redis-container"
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/yamtrack-redis:/data:rw,z"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for yamtrack
@@ -37,7 +40,7 @@
     name: yamtrack
     image: ghcr.io/fuzzygrim/yamtrack:{{ yamtrack_version }}
     state: quadlet
-    quadlet_filename: yamtrack-container
+    quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
     ports:
       - 127.0.0.1:{{ yamtrack_port }}:8000
@@ -49,6 +52,9 @@
       REDIS_URL: redis://yamtrack-redis:6379
       TRAKT_API: "{{ yamtrack_trakt_api | default(omit) }}"
       TRAKT_API_SECRET: "{{ yamtrack_trakt_api_secret | default(omit) }}"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for yamtrack
@@ -59,7 +65,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/yamtrack.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -72,7 +78,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/yamtrack.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

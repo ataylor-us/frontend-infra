@@ -13,7 +13,7 @@
     name: freshrss
     image: lscr.io/linuxserver/freshrss:{{ freshrss_version }}
     state: quadlet
-    quadlet_filename: freshrss-container
+    quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
     ports:
       - 127.0.0.1:{{ freshrss_port }}:80
@@ -23,6 +23,9 @@
       PUID: 1000
       PGID: 1000
       TZ: "{{ timezone }}"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for freshrss
@@ -33,7 +36,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/freshrss.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -44,7 +47,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/freshrss.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

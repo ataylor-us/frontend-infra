@@ -1,4 +1,5 @@
 ---
+project_name: mealie
 mealie_port: 9000
 mealie_external_port: 10003
 mealie_version: latest

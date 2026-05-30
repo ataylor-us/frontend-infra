@@ -13,7 +13,7 @@
     name: homer
     image: docker.io/b4bz/homer:{{ homer_version }}
     state: quadlet
-    quadlet_filename: homer-container
+    quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
     publish:
       - "127.0.0.1:{{ homer_port }}:8080"
@@ -22,6 +22,9 @@
     user: "{{ unas_uid }}:{{ unas_gid }}"
     env:
       TZ: "{{ timezone }}"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for homer
@@ -41,7 +44,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/homer.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -51,7 +54,7 @@
 - name: Copy borgmatic config
   become: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/homer.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

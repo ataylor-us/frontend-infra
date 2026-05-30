@@ -1,4 +1,5 @@
 ---
+project_name: yamtrack
 yamtrack_version: latest
 yamtrack_redis_version: 8-alpine
 yamtrack_port: 8001

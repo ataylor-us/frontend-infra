@@ -17,7 +17,7 @@
     name: karakeep-meilisearch
     image: docker.io/getmeili/meilisearch:{{ karakeep_meilisearch_version }}
     state: quadlet
-    quadlet_filename: karakeep-meilisearch-container
+    quadlet_filename: "{{ project_name }}-meilisearch-container"
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/karakeep-meilisearch:/meili_data:rw,z"
@@ -27,6 +27,9 @@
       NEXTAUTH_SECRET: "{{ karakeep_nextauth_secret }}"
       MEILI_MASTER_KEY: "{{ karakeep_meili_master_key }}"
       NEXTAUTH_URL: http://localhost:3000
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for karakeep
@@ -37,7 +40,7 @@
     name: karakeep-chrome
     image: gcr.io/zenika-hub/alpine-chrome:{{ karakeep_chrome_version }}
     state: quadlet
-    quadlet_filename: karakeep-chrome-container
+    quadlet_filename: "{{ project_name }}-chrome-container"
     network: "{{ default_podman_interface }}"
     command:
       - --no-sandbox
@@ -46,6 +49,9 @@
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
       - --hide-scrollbars
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for karakeep
@@ -57,7 +63,7 @@
     name: karakeep-server
     image: ghcr.io/karakeep-app/karakeep:{{ karakeep_server_version }}
     state: quadlet
-    quadlet_filename: karakeep-server-container
+    quadlet_filename: "{{ project_name }}-server-container"
     network: "{{ default_podman_interface }}"
     ports:
       - 127.0.0.1:{{ karakeep_port }}:3000
@@ -78,6 +84,9 @@
       CRAWLER_VIDEO_DOWNLOAD: "true"
       CRAWLER_VIDEO_DOWNLOAD_MAX_SIZE: 250
       DISABLE_SIGNUPS: "true"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for karakeep
@@ -88,7 +97,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/karakeep.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -101,7 +110,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/karakeep.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root

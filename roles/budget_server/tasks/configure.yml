@@ -13,7 +13,7 @@
     name: actual
     image: docker.io/actualbudget/actual-server:{{ actual_version }}
     state: quadlet
-    quadlet_filename: actual-container
+    quadlet_filename: "{{ project_name }}-container"
     user: 1000:1000
     env:
       TZ: "{{ timezone }}"
@@ -22,6 +22,9 @@
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/actual:/data:rw,z"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for actual
@@ -30,7 +33,7 @@
   become: true
   ansible.builtin.template:
     src: Caddyfile.j2
-    dest: /etc/caddy/conf.d/actual.Caddyfile
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
     group: caddy
     mode: "0644"
     owner: caddy
@@ -43,7 +46,7 @@
   become: true
   ignore_errors: true
   ansible.builtin.template:
-    dest: /etc/borgmatic.d/actual.yaml
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
     group: root
     mode: "0600"
     owner: root
