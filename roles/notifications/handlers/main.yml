@@ -1,18 +1,7 @@
 ---
-- name: Reload systemd for mailrise
-  ansible.builtin.systemd:
-    daemon_reload: true
-  become: true
-  changed_when: true
-- name: Restart mailrise
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    state: restarted
-  become: true
-  loop: "{{ enabled_services }}"
 - name: Test notifications
   ansible.builtin.shell:
-    cmd: 'set -o pipefail; sleep 5s; echo "Testing notifications on {{ inventory_hostname }}!" | msmtp root'
+    cmd: 'echo "Testing notifications on {{ inventory_hostname }}!" | msmtp root'
     executable: /bin/bash
   become: true
   changed_when: true
