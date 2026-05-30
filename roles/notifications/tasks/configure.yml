@@ -43,13 +43,16 @@
     name: mailrise
     image: ghcr.io/yoryan/mailrise@{{ mailrise_digest }}
     state: quadlet
-    quadlet_filename: mailrise-container
+    quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
     publish:
       - "127.0.0.1:{{ mailrise_port }}:{{ mailrise_port }}"
     user: 999:999
     volumes:
       - /etc/mailrise.conf:/etc/mailrise.conf:ro,z
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for mailrise
