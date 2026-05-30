@@ -1,7 +1,16 @@
 # {{ ansible_managed }}
-account default
-host localhost
-port {{ mailrise_port }}
-from {{ mailrise_user }}@{{ mailrise_domain }}
-syslog LOG_MAIL
+defaults
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile /var/log/msmtp.log
 aliases /etc/aliases
+
+account mailgun
+host {{ mailgun_smtp_host }}
+port {{ mailgun_smtp_port }}
+auth on
+user {{ mailgun_user }}
+password {{ mailgun_password }}
+from {{ inventory_hostname }}@{{ mailgun_from }}
+
+account default : mailgun

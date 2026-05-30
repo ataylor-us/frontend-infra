@@ -18,3 +18,7 @@ default_quadlet_options:
 default_podman_interface: "podman1"
 timezone: "America/New_York"
 dropbear_authorized_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwZLPWMML0VW/Uw/iVoDriAJ0XF7LupuZ7AhPa5aaTG alex@laptop-pro"
+mailgun_user: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/mailgun_user') }}"
+mailgun_password: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/mailgun_password') }}"
+mailgun_from: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/mailgun_from') }}"
+notification_email: "{{ lookup('community.general.passwordstore', 'Repositories/arch-base-infra/notification_email') }}"
