@@ -26,5 +26,12 @@
     mode: "0600"
     owner: root
   notify: Test notifications
+- name: Set MAILFROM in root crontab
+  become: true
+  ansible.builtin.cron:
+    name: MAILFROM
+    env: true
+    value: "{{ inventory_hostname }}@{{ mailgun_from }}"
+    user: root
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
