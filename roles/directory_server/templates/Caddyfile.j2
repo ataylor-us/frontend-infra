@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+https://{{ tailscale_domain }}:{{ lldap_external_port }} {
+  import tailscale
+  reverse_proxy localhost:{{ lldap_web_port }}
+}

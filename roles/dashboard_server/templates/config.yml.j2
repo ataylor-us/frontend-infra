@@ -10,13 +10,6 @@ services:
         subtitle: "Git"
         url: "https://{{ tailscale_domain }}:{{ forgejo_external_port }}"
         target: "_blank"
-  - name: "Files"
-    icon: "fas fa-folder-open"
-    items:
-      - name: "Syncthing"
-        subtitle: "File sync"
-        url: "https://{{ tailscale_domain }}:{{ syncthing_external_port }}"
-        target: "_blank"
   - name: "Photos"
     icon: "fas fa-camera"
     items:
@@ -72,4 +65,11 @@ services:
       - name: "Home Assistant"
         subtitle: "Home automation"
         url: "https://{{ tailscale_domain }}:{{ homeassistant_external_port }}"
+        target: "_blank"
+  - name: "Identity"
+    icon: "fas fa-id-card"
+    items:
+      - name: "LLDAP"
+        subtitle: "Directory"
+        url: "https://{{ tailscale_domain }}:{{ lldap_external_port }}"
         target: "_blank"

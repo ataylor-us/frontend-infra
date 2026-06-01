@@ -1,0 +1,10 @@
+---
+project_name: lldap
+lldap_version: stable
+lldap_web_port: 17170
+lldap_ldap_port: 3890
+lldap_external_port: 10011
+lldap_base_dn: dc=frontend,dc=internal
+enabled_services:
+  - lldap-container.service
+  - caddy.service

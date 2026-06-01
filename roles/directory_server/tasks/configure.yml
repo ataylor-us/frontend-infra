@@ -1,0 +1,61 @@
+---
+- name: Create config directories
+  become: true
+  ansible.builtin.file:
+    group: 1000
+    mode: "0755"
+    owner: 1000
+    path: "{{ podman_data_dir }}/lldap"
+    state: directory
+- name: Create a Quadlet file for lldap
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: lldap
+    image: docker.io/lldap/lldap:{{ lldap_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-container"
+    ports:
+      - 127.0.0.1:{{ lldap_web_port }}:17170
+      - 127.0.0.1:{{ lldap_ldap_port }}:3890
+    network: "{{ default_podman_interface }}"
+    volumes:
+      - "{{ podman_data_dir }}/lldap:/data:rw,z"
+    env:
+      UID: "1000"
+      GID: "1000"
+      TZ: "{{ timezone }}"
+      LLDAP_JWT_SECRET: "{{ lldap_jwt_secret }}"
+      LLDAP_KEY_SEED: "{{ lldap_key_seed }}"
+      LLDAP_LDAP_BASE_DN: "{{ lldap_base_dn }}"
+      LLDAP_LDAP_USER_PASS: "{{ lldap_user_pass }}"
+      LLDAP_HTTP_URL: "https://{{ tailscale_domain }}:{{ lldap_external_port }}"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for lldap
+    - Restart lldap
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
+    group: caddy
+    mode: "0644"
+    owner: caddy
+  notify:
+    - Reload systemd for lldap
+    - Restart lldap
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2

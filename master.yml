@@ -19,8 +19,6 @@
     - drift_management
     - role: dashboard_server
       tags: homer
-    - role: file_sync_server
-      tags: syncthing
     - role: budget_server
       tags: actual
     - role: recipe_server
@@ -42,3 +40,5 @@
       tags: homeassistant
     - role: media_tracker_server
       tags: yamtrack
+    - role: directory_server
+      tags: lldap
