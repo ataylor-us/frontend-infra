@@ -22,4 +22,4 @@ Base packages:
     ],
 ```
 
-Firewall rules (& drift management) is handled externally by [OpenVox](https://voxpupuli.org/openvox/).
+Firewall rules (& drift management) are handled externally by [OpenVox](https://voxpupuli.org/openvox/).
