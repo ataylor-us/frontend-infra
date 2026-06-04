@@ -1,5 +1,0 @@
-# {{ ansible_managed }}
-https://{{ tailscale_domain }}:{{ yamtrack_external_port }} {
-  import tailscale
-  reverse_proxy localhost:{{ yamtrack_port }}
-}
