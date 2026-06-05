@@ -29,6 +29,7 @@ samba_users:
 # TODO: Organize this better
 borg_passphrase: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/borg_passphrase') }}"
 epson_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/epson_smb_password') }}"
+forgejo_db_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/forgejo_db_password') }}"
 forgejo_internal_token: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/forgejo_internal_token') }}"
 forgejo_jwt_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/forgejo_jwt_secret') }}"
 forgejo_lfs_jwt_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/forgejo_lfs_jwt_secret') }}"
@@ -45,6 +46,7 @@ lldap_key_seed: "{{ lookup('community.general.passwordstore', 'Repositories/fron
 lldap_user_pass: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/lldap_user_pass') }}"
 mealie_openai_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/mealie_openai_key') }}"
 paperless_secret_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/paperless_secret_key') }}"
+postgres_host: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/postgres_host') }}"
 paperless_smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/paperless_smb_password') }}"
 pushover_application_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/pushover_application_key') }}"
 remote_borg_repo_path: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/remote_borg_repo_path') }}"

@@ -29,14 +29,12 @@ LFS_JWT_SECRET = {{ forgejo_lfs_jwt_secret }}
 OFFLINE_MODE = true
 
 [database]
-PATH = /data/gitea/gitea.db
-DB_TYPE = sqlite3
-HOST = localhost:3306
-NAME = gitea
-USER = root
-PASSWD =
+DB_TYPE = postgres
+HOST = {{ forgejo_db_host }}:5432
+NAME = {{ forgejo_db_name }}
+USER = {{ forgejo_db_user }}
+PASSWD = {{ forgejo_db_password }}
 LOG_SQL = false
-SCHEMA =
 SSL_MODE = disable
 
 [indexer]
