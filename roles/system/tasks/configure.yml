@@ -107,11 +107,11 @@
       ansible.builtin.replace:
         path: "{{ item.path }}"
         regexp: "^(options\\b(?!.*\\bip=).+)$"
-        replace: "\\1 ip=:::::eth0:dhcp"
+        replace: "\\1 ip={{ dropbear_ip_cmdline | default(':::::eth0:dhcp') }}"
       loop: "{{ boot_entries.files }}"
     - name: Update ip= on kernel cmdline
       ansible.builtin.replace:
         path: "{{ item.path }}"
         regexp: "\\bip=\\S+"
-        replace: "ip=:::::eth0:dhcp"
+        replace: "ip={{ dropbear_ip_cmdline | default(':::::eth0:dhcp') }}"
       loop: "{{ boot_entries.files }}"
