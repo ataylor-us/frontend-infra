@@ -103,6 +103,12 @@
         paths: /boot/loader/entries
         patterns: "*.conf"
       register: boot_entries
+    - name: Ensure netconf_timeout on kernel cmdline
+      ansible.builtin.replace:
+        path: "{{ item.path }}"
+        regexp: "^(options\\b(?!.*\\bnetconf_timeout=).+)$"
+        replace: "\\1 netconf_timeout=15"
+      loop: "{{ boot_entries.files }}"
     - name: Add ip= to kernel cmdline
       ansible.builtin.replace:
         path: "{{ item.path }}"
