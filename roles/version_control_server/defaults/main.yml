@@ -6,6 +6,7 @@ forgejo_external_port: 10008
 forgejo_db_host: "{{ postgres_host }}"
 forgejo_db_name: gitea
 forgejo_db_user: gitea
+service_data_dir: "{{ podman_nfs_data_dir }}/{{ project_name }}"
 enabled_services:
   - forgejo-container.service
   - caddy.service

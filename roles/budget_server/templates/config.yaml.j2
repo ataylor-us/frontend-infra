@@ -1,5 +1,9 @@
-source_directories:
-  - "{{ podman_data_dir }}/actual*"
+# Populated by the find task in configure.yml.  borgmatic does sqlite3 .backup on each for consistency.
+sqlite_databases:
+{% for db in actual_sqlite_dbs.files %}
+    - name: '{{ db.path | basename | regex_replace("\.sqlite$", "") }}'
+      path: '{{ db.path }}'
+{% endfor %}
 repositories:
     - path: '{{ remote_borg_repo_path }}'
       label: "remote"

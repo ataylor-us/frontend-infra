@@ -1,19 +1,11 @@
 ---
-- name: Create config directory
-  become: true
-  ansible.builtin.file:
-    group: 1000
-    mode: "0755"
-    owner: 1000
-    path: "{{ podman_data_dir }}/forgejo"
-    state: directory
 - name: Create gitea conf directory
   become: true
   ansible.builtin.file:
     group: 1000
     mode: "0755"
     owner: 1000
-    path: "{{ podman_data_dir }}/forgejo/gitea/conf"
+    path: "{{ service_data_dir }}/gitea/conf"
     state: directory
 - name: Create a Quadlet file
   become: true
@@ -29,12 +21,12 @@
     ports:
       - 127.0.0.1:{{ forgejo_port }}:{{ forgejo_port }}
     volumes:
-      - "{{ podman_data_dir }}/forgejo:/data:rw,z"
+      - "{{ service_data_dir }}:/data:rw,rslave"
       - /etc/localtime:/etc/localtime:ro,z
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
-    quadlet_options: "{{ default_quadlet_options }}"
+    quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for forgejo
     - Restart forgejo
@@ -42,7 +34,7 @@
   become: true
   ansible.builtin.template:
     src: app.ini.j2
-    dest: "{{ podman_data_dir }}/forgejo/gitea/conf/app.ini"
+    dest: "{{ service_data_dir }}/gitea/conf/app.ini"
     group: 1000
     mode: "0644"
     owner: 1000
@@ -64,12 +56,3 @@
     - Restart forgejo
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
-- name: Copy borgmatic config
-  become: true
-  ignore_errors: true
-  ansible.builtin.template:
-    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
-    group: root
-    mode: "0600"
-    owner: root
-    src: config.yaml.j2

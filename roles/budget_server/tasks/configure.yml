@@ -1,12 +1,4 @@
 ---
-- name: Create config directories
-  become: true
-  ansible.builtin.file:
-    group: 1000
-    mode: "0755"
-    owner: 1000
-    path: "{{ podman_data_dir }}/actual"
-    state: directory
 - name: Create a Quadlet file for actual
   become: true
   containers.podman.podman_container:
@@ -21,11 +13,11 @@
       - 127.0.0.1:{{ actual_port }}:5006
     network: "{{ default_podman_interface }}"
     volumes:
-      - "{{ podman_data_dir }}/actual:/data:rw,z"
+      - "{{ service_data_dir }}:/data:rw,rslave"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
-    quadlet_options: "{{ default_quadlet_options }}"
+    quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for actual
     - Restart actual
@@ -42,6 +34,15 @@
     - Restart actual
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
+# Each budget gets its own group-<slug>.sqlite, so I find them at deploy time. Re-run the play after adding a budget.
+- name: Discover Actual SQLite databases
+  become: true
+  ansible.builtin.find:
+    paths:
+      - "{{ service_data_dir }}/server-files"
+      - "{{ service_data_dir }}/user-files"
+    patterns: "*.sqlite"
+  register: actual_sqlite_dbs
 - name: Copy borgmatic config
   become: true
   ignore_errors: true

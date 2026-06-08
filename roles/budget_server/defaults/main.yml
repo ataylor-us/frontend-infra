@@ -3,6 +3,7 @@ project_name: actual
 actual_port: 5006
 actual_external_port: 10002
 actual_version: latest
+service_data_dir: "{{ podman_nfs_data_dir }}/{{ project_name }}"
 enabled_services:
   - actual-container.service
   - caddy.service

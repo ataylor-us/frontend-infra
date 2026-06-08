@@ -2,8 +2,16 @@
 domain_name: frontend.internal
 unas_uid: 977
 unas_gid: 988
-lan_borg_repo: "{{ unas2_ip }}:/var/nfs/shared/borg"
-autofs_mounts: []
+lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
+autofs_mounts:
+  - name: forgejo
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/forgejo"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
+  - name: actual
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/actual"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
 samba_shares:
   - name: paperless_consume
     comment: Paperless consume
@@ -51,7 +59,7 @@ paperless_smb_password: "{{ lookup('community.general.passwordstore', 'Repositor
 pushover_application_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/pushover_application_key') }}"
 remote_borg_repo_path: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/remote_borg_repo_path') }}"
 tailscale_domain: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/tailscale_domain') }}"
-unas2_ip: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/unas2_ip') }}"
+unas2_domain: "unas2.internal"
 yamtrack_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/yamtrack_secret') }}"
 yamtrack_trakt_api_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/yamtrack_trakt_api_secret') }}"
 yamtrack_trakt_api: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/yamtrack_trakt_api') }}"
