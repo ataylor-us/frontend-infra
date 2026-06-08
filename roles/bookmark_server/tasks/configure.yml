@@ -79,7 +79,6 @@
       BROWSER_WEB_URL: http://karakeep-chrome:9222
       OPENAI_API_KEY: "{{ karakeep_openai_key }}"
       DATA_DIR: /data
-      DB_WAL_MODE: "true"
       CRAWLER_FULL_PAGE_SCREENSHOT: "true"
       CRAWLER_FULL_PAGE_ARCHIVE: "true"
       CRAWLER_VIDEO_DOWNLOAD: "true"
