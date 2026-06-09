@@ -1,0 +1,41 @@
+---
+- name: Create data directory
+  become: true
+  ansible.builtin.file:
+    group: 999
+    mode: "0755"
+    owner: 999
+    path: "{{ podman_data_dir }}/postgres"
+    state: directory
+- name: Create a Quadlet file
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: postgres
+    image: docker.io/postgres:{{ postgres_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-container"
+    network: "{{ default_podman_interface }}"
+    volumes:
+      - "{{ podman_data_dir }}/postgres:/var/lib/postgresql:rw,z"
+    env:
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_INITDB_ARGS: --data-checksums
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for postgres
+    - Restart postgres
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2

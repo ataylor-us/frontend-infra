@@ -1,0 +1,5 @@
+---
+project_name: postgres
+postgres_version: 18
+enabled_services:
+  - postgres-container.service
