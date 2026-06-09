@@ -4,7 +4,11 @@ unas_uid: 977
 unas_gid: 988
 unas2_domain: "unas2.internal"
 lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
-autofs_mounts: []
+autofs_mounts:
+  - name: shared
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/shared"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
 samba_shares:
   - name: paperless_consume
     comment: Paperless consume
