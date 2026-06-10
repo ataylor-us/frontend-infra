@@ -99,6 +99,10 @@
     env:
       PAPERLESS_REDIS: redis://paperless-redis:6379
       PAPERLESS_SECRET_KEY: "{{ paperless_secret_key }}"
+      PAPERLESS_DBHOST: "{{ paperless_db_host }}"
+      PAPERLESS_DBNAME: "{{ paperless_db_name }}"
+      PAPERLESS_DBUSER: "{{ paperless_db_user }}"
+      PAPERLESS_DBPASS: "{{ paperless_db_password }}"
       PAPERLESS_URL: https://{{ tailscale_domain }}:{{ paperless_external_port }}
       PAPERLESS_TIME_ZONE: "{{ timezone }}"
       PAPERLESS_OCR_LANGUAGE: eng
