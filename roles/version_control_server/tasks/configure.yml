@@ -28,6 +28,7 @@
       USE_GID: 1000
     ports:
       - 127.0.0.1:{{ forgejo_port }}:{{ forgejo_port }}
+      - "{{ forgejo_ssh_port }}:2222"
     volumes:
       - "{{ podman_data_dir }}/forgejo:/data:rw,z"
       - /etc/localtime:/etc/localtime:ro,z

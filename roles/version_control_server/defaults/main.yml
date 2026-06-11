@@ -3,6 +3,7 @@ project_name: forgejo
 forgejo_version: 15
 forgejo_port: 13000
 forgejo_external_port: 10008
+forgejo_ssh_port: 222
 forgejo_db_host: "{{ postgres_host }}"
 forgejo_db_name: gitea
 forgejo_db_user: gitea
