@@ -70,6 +70,7 @@
     stop_time: 30
     volumes:
       - "{{ podman_data_dir }}/karakeep-server:/data:rw,z"
+      - "{{ podman_nfs_data_dir }}/karakeep-assets:/data/assets:rw"
     env:
       HOARDER_VERSION: release
       NEXTAUTH_SECRET: "{{ karakeep_nextauth_secret }}"
@@ -87,7 +88,7 @@
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
-    quadlet_options: "{{ default_quadlet_options }}"
+    quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for karakeep
     - Restart karakeep

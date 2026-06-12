@@ -5,6 +5,7 @@ karakeep_external_port: 10006
 karakeep_meilisearch_version: v1.41.0
 karakeep_server_version: 0.32.0
 karakeep_chrome_version: 124
+service_data_dir: "{{ podman_nfs_data_dir }}/karakeep-assets"
 enabled_services:
   - karakeep-server-container.service
   - karakeep-chrome-container.service
