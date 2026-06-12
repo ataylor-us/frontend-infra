@@ -5,6 +5,7 @@ immich_postgres_version: 14-vectorchord0.4.3-pgvectors0.2.0
 immich_server_version: v2.7.5
 immich_port: 2283
 immich_external_port: 10005
+service_data_dir: "{{ podman_nfs_data_dir }}/immich-upload"
 enabled_services:
   - immich-redis-container.service
   - immich-machine-learning-container.service

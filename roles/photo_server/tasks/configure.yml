@@ -82,6 +82,7 @@
     volumes:
       - /etc/localtime:/etc/localtime:ro,z
       - "{{ podman_data_dir }}/immich-server:/usr/src/app/upload:rw,z"
+      - "{{ podman_nfs_data_dir }}/immich-upload:/usr/src/app/upload/upload:rw"
     env:
       TZ: "{{ timezone }}"
       DB_PASSWORD: "{{ immich_database_password }}"
@@ -93,7 +94,7 @@
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
-    quadlet_options: "{{ default_quadlet_options }}"
+    quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for immich
     - Restart immich

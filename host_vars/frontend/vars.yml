@@ -9,6 +9,10 @@ autofs_mounts:
     fstype: nfs
     remote: "nas.internal:/srv/nfs/shared"
     options: nfsvers=4,rw,hard,noatime,nodiratime
+  - name: immich-upload
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/immich-upload"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
 samba_shares:
   - name: paperless_consume
     comment: Paperless consume
