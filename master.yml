@@ -33,9 +33,6 @@
       tags: karakeep
     - role: document_server
       tags: paperless
-    - role: nt_file_server
-      tags: samba
-      become: true
     - role: version_control_server
       tags: forgejo
     - role: home_automation_server
