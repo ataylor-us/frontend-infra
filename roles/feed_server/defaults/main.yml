@@ -2,7 +2,7 @@
 project_name: freshrss
 freshrss_port: 11080
 freshrss_external_port: 10004
-freshrss_version: latest
+freshrss_version: "latest@sha256:b24ddde7d465f004847305b70d2479eb31c218e777bf2ab97d42dc75b54ed914"
 enabled_services:
   - freshrss-container.service
   - caddy.service

@@ -103,7 +103,7 @@
   become: true
   containers.podman.podman_container:
     name: immich-machine-learning
-    image: ghcr.io/immich-app/immich-machine-learning:{{ immich_server_version }}
+    image: ghcr.io/immich-app/immich-machine-learning:{{ immich_ml_version }}
     state: quadlet
     quadlet_filename: "{{ project_name }}-machine-learning-container"
     network: "{{ default_podman_interface }}"

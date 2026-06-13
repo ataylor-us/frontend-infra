@@ -61,7 +61,7 @@
   become: true
   containers.podman.podman_container:
     name: paperless-tika
-    image: docker.io/apache/tika:latest
+    image: docker.io/apache/tika:{{ paperless_tika_version }}
     state: quadlet
     quadlet_filename: "{{ project_name }}-tika-container"
     network: "{{ default_podman_interface }}"

@@ -1,6 +1,6 @@
 ---
 project_name: forgejo
-forgejo_version: 15
+forgejo_version: "15@sha256:55bb42bec9abef5223744804f164e37d37b20df7e8b8b4807ba213ad4f071d6d"
 forgejo_port: 13000
 forgejo_external_port: 10008
 forgejo_ssh_port: 222
