@@ -23,8 +23,6 @@
       tags: homer
     - role: budget_server
       tags: actual
-    - role: recipe_server
-      tags: mealie
     - role: feed_server
       tags: freshrss
     - role: photo_server
