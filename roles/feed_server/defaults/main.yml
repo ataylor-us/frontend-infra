@@ -3,7 +3,7 @@ project_name: freshrss
 freshrss_port: 11080
 freshrss_external_port: 10004
 # renovate: datasource=docker depName=lscr.io/linuxserver/freshrss
-freshrss_version: "latest@sha256:b24ddde7d465f004847305b70d2479eb31c218e777bf2ab97d42dc75b54ed914"
+freshrss_version: "latest@sha256:699594b0bccd029e655052e18d69abd235dd5ddc071f44f3af3b407f01138954"
 enabled_services:
   - freshrss-container.service
   - caddy.service
