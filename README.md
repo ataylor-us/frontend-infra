@@ -2,7 +2,18 @@
 
 Templated from [arch-base-infra](https://github.com/ataylor-us/arch-base-infra).
 
-This box has the majority of my self-hosted services, which are shared out to my devices using tailscale (when not purely local.)
+This box has the majority of my self-hosted services, divided into roles.  I used podman quadlets to run the containers, and tailscale to share them to my devices.
+
+Some of these services include:
++ [Immich](https://immich.app) - `photo_server`
++ [Paperless-ngx](https://docs.paperless-ngx.com) - `document_server`
++ [Actual Budget](https://actualbudget.org) - `budget_server`
++ [FreshRSS](https://freshrss.org) - `feed_server`
++ [Karakeep](https://karakeep.app) - `bookmark_server`
++ [Forgejo](https://forgejo.org) - `version_control_server`
++ [Home Assistant](https://www.home-assistant.io) - `home_automation_server`
+
+## Running
 
 ```bash
 ssh-copy-id `#ip`
