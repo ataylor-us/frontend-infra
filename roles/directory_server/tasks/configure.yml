@@ -30,6 +30,7 @@
       LLDAP_LDAP_BASE_DN: "{{ lldap_base_dn }}"
       LLDAP_LDAP_USER_PASS: "{{ lldap_user_pass }}"
       LLDAP_HTTP_URL: "https://{{ tailscale_domain }}:{{ lldap_external_port }}"
+      LLDAP_DATABASE_URL: "postgres://lldap:{{ lldap_db_password }}@{{ postgres_host }}:5432/lldap"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
