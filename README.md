@@ -2,6 +2,8 @@
 
 Base playbook to set up an Arch box
 
+## Running
+
 ```bash
 ssh-copy-id `#ip`
 ansible-playbook master.yml -e tailscale_authkey=`#key` -e ansible_host=`#ip`
