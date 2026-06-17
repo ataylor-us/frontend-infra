@@ -16,6 +16,8 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
+    ports:
+      - 127.0.0.1:5432:5432
     volumes:
       - "{{ podman_data_dir }}/postgres:/var/lib/postgresql:rw,z"
     env:
