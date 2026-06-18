@@ -59,3 +59,7 @@ services:
         subtitle: "Directory"
         url: "https://{{ tailscale_domain }}:{{ lldap_external_port }}"
         target: "_blank"
+      - name: "Authelia"
+        subtitle: "Authentication"
+        url: "https://{{ tailscale_domain }}:{{ authelia_external_port }}"
+        target: "_blank"

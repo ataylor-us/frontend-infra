@@ -37,3 +37,5 @@
       tags: homeassistant
     - role: directory_server
       tags: lldap
+    - role: auth_server
+      tags: authelia
