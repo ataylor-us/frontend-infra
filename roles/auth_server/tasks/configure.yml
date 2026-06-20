@@ -13,7 +13,7 @@
     src: configuration.yml.j2
     dest: "{{ podman_data_dir }}/authelia/configuration.yml"
     group: 1000
-    mode: "0644"
+    mode: "0600"
     owner: 1000
   notify:
     - Reload systemd for authelia
@@ -41,6 +41,7 @@
       AUTHELIA_STORAGE_POSTGRES_PASSWORD: "{{ authelia_db_password }}"
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD: "{{ lldap_search_user_pass }}"
       AUTHELIA_NOTIFIER_SMTP_PASSWORD: "{{ mailgun_password }}"
+      AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET: "{{ authelia_oidc_hmac_secret }}"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
