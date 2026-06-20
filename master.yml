@@ -19,8 +19,6 @@
     - drift_management
     - role: database_server
       tags: postgres
-    - role: dashboard_server
-      tags: homer
     - role: budget_server
       tags: actual
     - role: feed_server

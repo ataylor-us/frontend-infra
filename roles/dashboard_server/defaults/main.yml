@@ -1,8 +1,0 @@
----
-project_name: homer
-# renovate: datasource=docker depName=docker.io/b4bz/homer
-homer_version: "latest@sha256:ace7c6a2cfb66e13f0e94d5534cb569562f190aa5cac9446b2453ef7822cd195"
-homer_port: 8080
-enabled_services:
-  - homer-container.service
-  - caddy.service
