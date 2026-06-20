@@ -12,6 +12,10 @@ Some of these services include:
 + [Karakeep](https://karakeep.app) - `bookmark_server`
 + [Forgejo](https://forgejo.org) - `version_control_server`
 + [Home Assistant](https://www.home-assistant.io) - `home_automation_server`
++ [Memos](https://usememos.com/)
+
+## Auth
+[lldap](https://github.com/lldap/lldap) + [Authelia](https://www.authelia.com/) is used for 2FA/SSO, (currently a WIP.)
 
 ## Running
 
