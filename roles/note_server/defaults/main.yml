@@ -1,0 +1,13 @@
+---
+project_name: memos
+memos_port: 5230
+memos_external_port: 10012
+memos_external_url: "https://{{ tailscale_domain }}:{{ memos_external_port }}"
+# renovate: datasource=docker depName=docker.io/neosmemo/memos
+memos_version: "0.29.1@sha256:3e1253477066eb2aefa91145f7f9038bb931ed88c8a3ee05310a933594cdba7d"
+memos_db_host: "{{ postgres_host }}"
+memos_db_name: memos
+memos_db_user: memos
+enabled_services:
+  - memos-container.service
+  - caddy.service

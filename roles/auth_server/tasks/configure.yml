@@ -1,0 +1,73 @@
+---
+- name: Create config directory
+  become: true
+  ansible.builtin.file:
+    group: 1000
+    mode: "0755"
+    owner: 1000
+    path: "{{ podman_data_dir }}/authelia"
+    state: directory
+- name: Generate Authelia configuration
+  become: true
+  ansible.builtin.template:
+    src: configuration.yml.j2
+    dest: "{{ podman_data_dir }}/authelia/configuration.yml"
+    group: 1000
+    mode: "0600"
+    owner: 1000
+  notify:
+    - Reload systemd for authelia
+    - Restart authelia
+- name: Create a Quadlet file for authelia
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: authelia
+    image: docker.io/authelia/authelia:{{ authelia_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-container"
+    network: "{{ default_podman_interface }}"
+    ports:
+      - 127.0.0.1:{{ authelia_port }}:9091
+    volumes:
+      - "{{ podman_data_dir }}/authelia:/config:rw,z"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "{{ timezone }}"
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: "{{ authelia_jwt_secret }}"
+      AUTHELIA_SESSION_SECRET: "{{ authelia_session_secret }}"
+      AUTHELIA_STORAGE_ENCRYPTION_KEY: "{{ authelia_storage_encryption_key }}"
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD: "{{ authelia_db_password }}"
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD: "{{ lldap_search_user_pass }}"
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD: "{{ mailgun_password }}"
+      AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET: "{{ authelia_oidc_hmac_secret }}"
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for authelia
+    - Restart authelia
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
+    group: caddy
+    mode: "0644"
+    owner: caddy
+  notify:
+    - Reload systemd for authelia
+    - Restart authelia
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2

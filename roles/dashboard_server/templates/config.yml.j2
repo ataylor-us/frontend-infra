@@ -38,6 +38,13 @@ services:
         subtitle: "Document manager"
         url: "https://{{ tailscale_domain }}:{{ paperless_external_port }}"
         target: "_blank"
+  - name: "Notes"
+    icon: "fas fa-sticky-note"
+    items:
+      - name: "Memos"
+        subtitle: "Notes"
+        url: "{{ memos_external_url }}"
+        target: "_blank"
   - name: "Finance"
     icon: "fas fa-wallet"
     items:
@@ -58,4 +65,8 @@ services:
       - name: "LLDAP"
         subtitle: "Directory"
         url: "https://{{ tailscale_domain }}:{{ lldap_external_port }}"
+        target: "_blank"
+      - name: "Authelia"
+        subtitle: "Authentication"
+        url: "https://{{ tailscale_domain }}:{{ authelia_external_port }}"
         target: "_blank"

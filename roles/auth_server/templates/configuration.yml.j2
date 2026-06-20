@@ -1,0 +1,78 @@
+# {{ ansible_managed }}
+theme: 'auto'
+
+server:
+  address: 'tcp://:{{ authelia_port }}'
+
+log:
+  level: 'info'
+
+totp:
+  issuer: '{{ domain_name }}'
+
+identity_validation:
+  reset_password:
+    jwt_lifespan: '5 minutes'
+
+authentication_backend:
+  password_reset:
+    disable: true
+  refresh_interval: '5 minutes'
+  ldap:
+    implementation: 'lldap'
+    address: '{{ authelia_ldap_address }}'
+    base_dn: '{{ authelia_ldap_base_dn }}'
+    additional_users_dn: 'ou=people'
+    additional_groups_dn: 'ou=groups'
+    user: '{{ authelia_ldap_user }}'
+
+access_control:
+  default_policy: 'two_factor'
+
+session:
+  name: 'authelia_session'
+  expiration: '1 hour'
+  inactivity: '5 minutes'
+  remember_me: '1 month'
+  cookies:
+    - domain: '{{ tailscale_domain }}'
+      authelia_url: '{{ authelia_external_url }}'
+
+regulation:
+  max_retries: 4
+  find_time: '2 minutes'
+  ban_time: '5 minutes'
+
+storage:
+  postgres:
+    address: 'tcp://{{ authelia_db_host }}:5432'
+    database: '{{ authelia_db_name }}'
+    username: '{{ authelia_db_user }}'
+
+notifier:
+  smtp:
+    address: 'submission://smtp.mailgun.org:587'
+    username: '{{ mailgun_user }}'
+    sender: 'Authelia <{{ inventory_hostname }}@{{ mailgun_from }}>'
+
+identity_providers:
+  oidc:
+    jwks:
+      - key: |
+{{ authelia_oidc_jwks_key | indent(10, first=true) }}
+    clients:
+     # Memos needs to be configured manually:
+     # https://www.authelia.com/integration/openid-connect/clients/memos/
+      - client_id: 'memos'
+        client_name: 'Memos'
+        client_secret: '{{ memos_oidc_client_secret_hash }}'
+        public: false
+        authorization_policy: 'two_factor'
+        require_pkce: false
+        redirect_uris:
+          - '{{ memos_external_url }}/auth/callback'
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
+        token_endpoint_auth_method: 'client_secret_post'
