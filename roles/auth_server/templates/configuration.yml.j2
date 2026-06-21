@@ -57,6 +57,12 @@ notifier:
 
 identity_providers:
   oidc:
+    claims_policies:
+      # Escape hatch for Karakeep, (not a conformant OIDC client):
+      # https://www.authelia.com/integration/openid-connect/clients/karakeep/
+      karakeep:
+        id_token:
+          - 'email'
     jwks:
       - key: |
 {{ authelia_oidc_jwks_key | indent(10, first=true) }}
@@ -92,6 +98,28 @@ identity_providers:
           - 'email'
           - 'profile'
           - 'groups'
+        response_types:
+          - 'code'
+        grant_types:
+          - 'authorization_code'
+        access_token_signed_response_alg: 'none'
+        userinfo_signed_response_alg: 'none'
+        token_endpoint_auth_method: 'client_secret_basic'
+     # Karakeep is configured via OAUTH_* env vars in the bookmark_server role:
+     # https://www.authelia.com/integration/openid-connect/clients/karakeep/
+      - client_id: 'karakeep'
+        client_name: 'Karakeep'
+        client_secret: '{{ karakeep_oidc_client_secret_hash }}'
+        public: false
+        authorization_policy: 'two_factor'
+        require_pkce: false
+        claims_policy: 'karakeep'
+        redirect_uris:
+          - '{{ karakeep_external_url }}/api/auth/callback/custom'
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'email'
         response_types:
           - 'code'
         grant_types:

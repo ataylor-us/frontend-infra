@@ -75,7 +75,7 @@
       HOARDER_VERSION: release
       NEXTAUTH_SECRET: "{{ karakeep_nextauth_secret }}"
       MEILI_MASTER_KEY: "{{ karakeep_meili_master_key }}"
-      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_URL: "{{ karakeep_external_url }}"
       MEILI_ADDR: http://karakeep-meilisearch:7700
       BROWSER_WEB_URL: http://karakeep-chrome:9222
       OPENAI_API_KEY: "{{ karakeep_openai_key }}"
@@ -85,6 +85,12 @@
       CRAWLER_VIDEO_DOWNLOAD: "true"
       CRAWLER_VIDEO_DOWNLOAD_MAX_SIZE: 250
       DISABLE_SIGNUPS: "true"
+      OAUTH_WELLKNOWN_URL: "{{ authelia_external_url }}/.well-known/openid-configuration"
+      OAUTH_CLIENT_ID: karakeep
+      OAUTH_CLIENT_SECRET: "{{ karakeep_oidc_client_secret }}"
+      OAUTH_PROVIDER_NAME: Authelia
+      # This is scary sounding, but needed to link with OIDC/Authelia
+      OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: "true"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"

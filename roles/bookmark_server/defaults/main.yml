@@ -2,6 +2,7 @@
 project_name: karakeep
 karakeep_port: 3000
 karakeep_external_port: 10006
+karakeep_external_url: "https://{{ tailscale_domain }}:{{ karakeep_external_port }}"
 # renovate: datasource=docker depName=docker.io/getmeili/meilisearch
 karakeep_meilisearch_version: "v1.41.0@sha256:860fa4baed04ae1c235de870edab0c8006227546dea1bbb6411fbfc5e27cf1db"
 # renovate: datasource=docker depName=ghcr.io/karakeep-app/karakeep
