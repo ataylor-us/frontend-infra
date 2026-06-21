@@ -2,8 +2,6 @@
 domain_name: frontend.internal
 unas_uid: 977
 unas_gid: 988
-unas2_domain: "unas2.internal"
-lan_borg_repo: "{{ unas2_domain }}:/var/nfs/shared/borg"
 autofs_mounts:
   - name: immich-upload
     fstype: nfs
