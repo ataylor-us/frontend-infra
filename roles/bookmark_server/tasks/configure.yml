@@ -89,8 +89,6 @@
       OAUTH_CLIENT_ID: karakeep
       OAUTH_CLIENT_SECRET: "{{ karakeep_oidc_client_secret }}"
       OAUTH_PROVIDER_NAME: Authelia
-      # This is scary sounding, but needed to link with OIDC/Authelia
-      OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: "true"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
