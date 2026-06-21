@@ -10,6 +10,7 @@ immich_server_version: "v2.7.5@sha256:c15bff75068effb03f4355997d03dc7e0fc58720c2
 immich_ml_version: "v2.7.5@sha256:a2501141440f10516d329fdfba2c68082e19eb9ba6016c061ac80d23beadf7f3"
 immich_port: 2283
 immich_external_port: 10005
+immich_external_url: "https://{{ tailscale_domain }}:{{ immich_external_port }}"
 service_data_dir: "{{ podman_nfs_data_dir }}/immich-upload {{ podman_nfs_data_dir }}/immich-encoded-video"
 enabled_services:
   - immich-redis-container.service
