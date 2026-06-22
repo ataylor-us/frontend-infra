@@ -1,9 +1,13 @@
 ---
-project_name: freshrss
-freshrss_port: 11080
-freshrss_external_port: 10004
-# renovate: datasource=docker depName=lscr.io/linuxserver/freshrss
-freshrss_version: "latest@sha256:699594b0bccd029e655052e18d69abd235dd5ddc071f44f3af3b407f01138954"
+project_name: miniflux
+miniflux_port: 11080
+miniflux_external_port: 10004
+miniflux_external_url: "https://{{ tailscale_domain }}:{{ miniflux_external_port }}"
+# renovate: datasource=docker depName=docker.io/miniflux/miniflux
+miniflux_version: "2.3.1@sha256:42f14382a035e9d9bbc33910ca53f72d47177f75c3c638d2c5a85adf5582d538"
+miniflux_db_host: "{{ postgres_host }}"
+miniflux_db_name: miniflux
+miniflux_db_user: miniflux
 enabled_services:
-  - freshrss-container.service
+  - miniflux-container.service
   - caddy.service

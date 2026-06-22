@@ -8,7 +8,7 @@ Some of these services include:
 + [Immich](https://immich.app) - `photo_server`
 + [Paperless-ngx](https://docs.paperless-ngx.com) - `document_server`
 + [Actual Budget](https://actualbudget.org) - `budget_server`
-+ [FreshRSS](https://freshrss.org) - `feed_server`
++ [Miniflux](https://miniflux.app) - `feed_server`
 + [Karakeep](https://karakeep.app) - `bookmark_server`
 + [Forgejo](https://forgejo.org) - `version_control_server`
 + [Home Assistant](https://www.home-assistant.io) - `home_automation_server`

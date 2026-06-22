@@ -22,7 +22,7 @@
     - role: budget_server
       tags: actual
     - role: feed_server
-      tags: freshrss
+      tags: miniflux
     - role: photo_server
       tags: immich
     - role: bookmark_server

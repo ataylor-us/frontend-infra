@@ -1,35 +1,38 @@
 ---
-- name: Create config directory
-  become: true
-  ansible.builtin.file:
-    group: 1000
-    mode: "0755"
-    owner: 1000
-    path: "{{ podman_data_dir }}/freshrss"
-    state: directory
 - name: Create a Quadlet file
   become: true
+  no_log: true
   containers.podman.podman_container:
-    name: freshrss
-    image: lscr.io/linuxserver/freshrss:{{ freshrss_version }}
+    name: miniflux
+    image: docker.io/miniflux/miniflux:{{ miniflux_version }}
     state: quadlet
     quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
     ports:
-      - 127.0.0.1:{{ freshrss_port }}:80
-    volumes:
-      - "{{ podman_data_dir }}/freshrss:/config:rw,z"
+      - 127.0.0.1:{{ miniflux_port }}:8080
     env:
-      PUID: 1000
-      PGID: 1000
       TZ: "{{ timezone }}"
+      LISTEN_ADDR: 0.0.0.0:8080
+      BASE_URL: "{{ miniflux_external_url }}"
+      DATABASE_URL: "postgres://{{ miniflux_db_user }}:{{ miniflux_db_password }}@{{ miniflux_db_host }}:5432/{{ miniflux_db_name }}?sslmode=disable"
+      RUN_MIGRATIONS: "1"
+      CREATE_ADMIN: "1"
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: "{{ miniflux_admin_password }}"
+      DISABLE_LOCAL_AUTH: "true"
+      OAUTH2_PROVIDER: oidc
+      OAUTH2_OIDC_PROVIDER_NAME: Authelia
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT: "{{ authelia_external_url }}"
+      OAUTH2_CLIENT_ID: miniflux
+      OAUTH2_CLIENT_SECRET: "{{ miniflux_oauth2_client_secret }}"
+      OAUTH2_REDIRECT_URL: "{{ miniflux_external_url }}/oauth2/oidc/callback"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
-    - Reload systemd for freshrss
-    - Restart freshrss
+    - Reload systemd for miniflux
+    - Restart miniflux
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
 - name: Generate Caddyfile
@@ -41,16 +44,7 @@
     mode: "0644"
     owner: caddy
   notify:
-    - Reload systemd for freshrss
-    - Restart freshrss
-- name: Copy borgmatic config
-  become: true
-  ignore_errors: true
-  ansible.builtin.template:
-    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
-    group: root
-    mode: "0600"
-    owner: root
-    src: config.yaml.j2
+    - Reload systemd for miniflux
+    - Restart miniflux
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
