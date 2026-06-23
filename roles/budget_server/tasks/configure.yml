@@ -9,6 +9,7 @@
     state: directory
 - name: Create a Quadlet file for actual
   become: true
+  no_log: true
   containers.podman.podman_container:
     name: actual
     image: docker.io/actualbudget/actual-server:{{ actual_version }}
@@ -17,6 +18,12 @@
     user: 1000:1000
     env:
       TZ: "{{ timezone }}"
+      ACTUAL_OPENID_DISCOVERY_URL: "{{ authelia_external_url }}"
+      ACTUAL_OPENID_CLIENT_ID: "{{ project_name }}"
+      ACTUAL_OPENID_CLIENT_SECRET: "{{ actual_oidc_client_secret }}"
+      ACTUAL_OPENID_SERVER_HOSTNAME: "{{ actual_external_url }}"
+      ACTUAL_OPENID_AUTH_METHOD: oauth2
+      ACTUAL_OPENID_ENFORCE: "true"
     ports:
       - 127.0.0.1:{{ actual_port }}:5006
     network: "{{ default_podman_interface }}"

@@ -2,6 +2,7 @@
 project_name: actual
 actual_port: 5006
 actual_external_port: 10002
+actual_external_url: "https://{{ tailscale_domain }}:{{ actual_external_port }}"
 # renovate: datasource=docker depName=docker.io/actualbudget/actual-server
 actual_version: "latest@sha256:74385f8067f401e61f0be9e343c471705c42dfaa195295c40c5b2f15f4dcc9d4"
 enabled_services:

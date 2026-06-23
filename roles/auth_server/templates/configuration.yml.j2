@@ -171,6 +171,28 @@ identity_providers:
         access_token_signed_response_alg: 'none'
         userinfo_signed_response_alg: 'none'
         token_endpoint_auth_method: 'client_secret_basic'
+     # Actual Budget is configured via ACTUAL_OPENID_* env vars in the budget_server role:
+     # https://www.authelia.com/integration/openid-connect/clients/actual-budget/
+      - client_id: 'actual'
+        client_name: 'Actual Budget'
+        client_secret: '{{ actual_oidc_client_secret_hash }}'
+        public: false
+        authorization_policy: 'two_factor'
+        require_pkce: false
+        redirect_uris:
+          - '{{ actual_external_url }}/openid/callback'
+        scopes:
+          - 'openid'
+          - 'profile'
+          - 'groups'
+          - 'email'
+        response_types:
+          - 'code'
+        grant_types:
+          - 'authorization_code'
+        access_token_signed_response_alg: 'none'
+        userinfo_signed_response_alg: 'none'
+        token_endpoint_auth_method: 'client_secret_basic'
      # Paperless-ngx is configured via PAPERLESS_SOCIALACCOUNT_PROVIDERS in the document_server role:
      # https://www.authelia.com/integration/openid-connect/clients/paperless/
       - client_id: 'paperless'
