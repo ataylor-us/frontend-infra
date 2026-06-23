@@ -95,7 +95,7 @@
       PAPERLESS_DBNAME: "{{ paperless_db_name }}"
       PAPERLESS_DBUSER: "{{ paperless_db_user }}"
       PAPERLESS_DBPASS: "{{ paperless_db_password }}"
-      PAPERLESS_URL: https://{{ tailscale_domain }}:{{ paperless_external_port }}
+      PAPERLESS_URL: "{{ paperless_external_url }}"
       PAPERLESS_TIME_ZONE: "{{ timezone }}"
       PAPERLESS_OCR_LANGUAGE: eng
       PAPERLESS_OCR_LANGUAGES: jpn
@@ -105,6 +105,13 @@
       PAPERLESS_CONSUMER_POLLING: 60
       PAPERLESS_CONSUMER_POLLING_RETRY_COUNT: 5
       PAPERLESS_CONSUMER_POLLING_DELAY: 30
+      PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+      PAPERLESS_SOCIAL_AUTO_SIGNUP: "false"
+      PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
+      PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
+      PAPERLESS_REDIRECT_LOGIN_TO_SSO: "true"
+      # See comment in defaults
+      PAPERLESS_SOCIALACCOUNT_PROVIDERS: "{{ paperless_socialaccount_providers | to_json }}"
     labels:
       managed-by: ansible
       part-of: "{{ project_name }}"
