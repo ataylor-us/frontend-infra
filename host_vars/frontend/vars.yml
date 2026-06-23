@@ -64,7 +64,4 @@ paperless_smb_password: "{{ lookup('community.general.passwordstore', 'Repositor
 pushover_application_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/pushover_application_key') }}"
 remote_borg_repo_path: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/remote_borg_repo_path') }}"
 tailscale_domain: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/tailscale_domain') }}"
-yamtrack_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/yamtrack_secret') }}"
-yamtrack_trakt_api_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/yamtrack_trakt_api_secret') }}"
-yamtrack_trakt_api: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/yamtrack_trakt_api') }}"
 postgres_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/postgres_password') }}"
