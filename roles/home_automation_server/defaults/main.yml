@@ -3,7 +3,7 @@ project_name: homeassistant
 homeassistant_port: 8123
 homeassistant_external_port: 10009
 # renovate: datasource=docker depName=lscr.io/linuxserver/homeassistant
-homeassistant_version: "latest@sha256:27b5661081d676755bf2851aca9ad9a78ca0bb1fafcb138280524b28e8d06ffd"
+homeassistant_version: "latest@sha256:21b85b512822424236cda5132abf869a1093d07d00122df3a2f66b6bbdf37adf"
 enabled_services:
   - homeassistant-container.service
   - caddy.service
