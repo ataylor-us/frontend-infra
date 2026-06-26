@@ -1,0 +1,68 @@
+---
+- name: Create data directory
+  become: true
+  ansible.builtin.file:
+    group: 1000
+    mode: "0755"
+    owner: 1000
+    path: "{{ podman_data_dir }}/open-webui"
+    state: directory
+- name: Create a Quadlet file
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: open-webui
+    image: ghcr.io/open-webui/open-webui:{{ openwebui_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-container"
+    user: 1000:1000
+    network: "{{ default_podman_interface }}"
+    ports:
+      - 127.0.0.1:{{ openwebui_port }}:8080
+    volumes:
+      - "{{ podman_data_dir }}/open-webui:/app/backend/data:rw,z"
+    env:
+      TZ: "{{ timezone }}"
+      HOME: /app/backend/data
+      WEBUI_URL: "{{ openwebui_external_url }}"
+      WEBUI_SECRET_KEY: "{{ openwebui_secret_key }}"
+      DATABASE_URL: "postgresql://{{ openwebui_db_user }}:{{ openwebui_db_password }}@{{ openwebui_db_host }}:5432/{{ openwebui_db_name }}?sslmode=disable"
+      ENABLE_OAUTH_SIGNUP: "false"
+      OAUTH_MERGE_ACCOUNTS_BY_EMAIL: "true"
+      OAUTH_CLIENT_ID: open-webui
+      OAUTH_CLIENT_SECRET: "{{ openwebui_oidc_client_secret }}"
+      OPENID_PROVIDER_URL: "{{ authelia_external_url }}/.well-known/openid-configuration"
+      OAUTH_PROVIDER_NAME: Authelia
+      OAUTH_SCOPES: openid email profile
+      OAUTH_CODE_CHALLENGE_METHOD: S256
+    labels:
+      managed-by: ansible
+      part-of: "{{ project_name }}"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for open-webui
+    - Restart open-webui
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
+    group: caddy
+    mode: "0644"
+    owner: caddy
+  notify:
+    - Reload systemd for open-webui
+    - Restart open-webui
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2

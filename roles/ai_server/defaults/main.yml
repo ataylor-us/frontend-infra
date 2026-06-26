@@ -1,0 +1,13 @@
+---
+project_name: open-webui
+openwebui_port: 18080
+openwebui_external_port: 10013
+openwebui_external_url: "https://{{ tailscale_domain }}:{{ openwebui_external_port }}"
+# renovate: datasource=docker depName=ghcr.io/open-webui/open-webui
+openwebui_version: "0.9.6@sha256:90eae5b419e40b4c3dd684582b2c83440b36f9ae2f6532c09639b2ba4ee65158"
+openwebui_db_host: "{{ postgres_host }}"
+openwebui_db_name: openwebui
+openwebui_db_user: openwebui
+enabled_services:
+  - open-webui-container.service
+  - caddy.service

@@ -39,3 +39,5 @@
       tags: authelia
     - role: note_server
       tags: memos
+    - role: ai_server
+      tags: openwebui
