@@ -4,7 +4,7 @@ miniflux_port: 11080
 miniflux_external_port: 10004
 miniflux_external_url: "https://{{ tailscale_domain }}:{{ miniflux_external_port }}"
 # renovate: datasource=docker depName=docker.io/miniflux/miniflux
-miniflux_version: "2.3.1@sha256:42f14382a035e9d9bbc33910ca53f72d47177f75c3c638d2c5a85adf5582d538"
+miniflux_version: "2.3.2@sha256:cd353a6af9ce663291f405eddef26fa0d567f486b521c5d34e3fb50e41938b9a"
 miniflux_db_host: "{{ postgres_host }}"
 miniflux_db_name: miniflux
 miniflux_db_user: miniflux
