@@ -16,7 +16,7 @@ Some of these services include:
 + [Open WebUI](https://openwebui.com) - `ai_server`
 
 ## Auth
-[lldap](https://github.com/lldap/lldap) + [Authelia](https://www.authelia.com/) is used for 2FA/SSO, (currently a WIP.)
+[lldap](https://github.com/lldap/lldap) + [Authelia](https://www.authelia.com/) is used for 2FA/SSO when possible.
 
 ## Running
 
