@@ -3,3 +3,8 @@ https://{{ tailscale_domain }}:{{ forgejo_external_port }} {
   import tailscale
   reverse_proxy localhost:{{ forgejo_port }}
 }
+
+https://git.internal {
+  import internal
+  reverse_proxy localhost:{{ forgejo_port }}
+}

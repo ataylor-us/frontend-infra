@@ -10,6 +10,9 @@ http://{{ tailscale_domain }} {
 	redir https://{{ tailscale_domain }}{uri}
 }
 
-import conf.d/*
-
 {% endif %}
+(internal) {
+	tls internal
+}
+
+import conf.d/*
