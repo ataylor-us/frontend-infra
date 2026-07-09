@@ -1,35 +1,4 @@
 ---
-- name: Create config directory
-  become: true
-  ansible.builtin.file:
-    group: 1000
-    mode: "0755"
-    owner: 1000
-    path: "{{ podman_data_dir }}/homeassistant"
-    state: directory
-- name: Create a Quadlet file
-  become: true
-  containers.podman.podman_container:
-    name: homeassistant
-    image: lscr.io/linuxserver/homeassistant:{{ homeassistant_version }}
-    state: quadlet
-    quadlet_filename: "{{ project_name }}-container"
-    network: host
-    env:
-      PUID: 1000
-      PGID: 1000
-      TZ: "{{ timezone }}"
-    volumes:
-      - "{{ podman_data_dir }}/homeassistant:/config:rw,z"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
-    quadlet_options: "{{ default_quadlet_options }}"
-  notify:
-    - Reload systemd for homeassistant
-    - Restart homeassistant
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
 - name: Generate Caddyfile
   become: true
   ansible.builtin.template:
@@ -39,16 +8,6 @@
     mode: "0644"
     owner: caddy
   notify:
-    - Reload systemd for homeassistant
-    - Restart homeassistant
+    - Restart caddy
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
-- name: Copy borgmatic config
-  become: true
-  ignore_errors: true
-  ansible.builtin.template:
-    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
-    group: root
-    mode: "0600"
-    owner: root
-    src: config.yaml.j2

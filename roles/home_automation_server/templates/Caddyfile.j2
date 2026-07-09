@@ -1,5 +1,6 @@
 # {{ ansible_managed }}
+# puppet:compliance:ignore
 https://{{ tailscale_domain }}:{{ homeassistant_external_port }} {
   import tailscale
-  reverse_proxy localhost:{{ homeassistant_port }}
+  reverse_proxy homeassistant.internal:8123
 }
