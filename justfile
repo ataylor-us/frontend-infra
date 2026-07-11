@@ -1,7 +1,9 @@
-default:
-    ansible-galaxy install -r requirements.yml
+default: install
     ansible-playbook master.yml
 
-check:
+install:
     ansible-galaxy install -r requirements.yml
+    pre-commit install
+
+check: install
     ansible-playbook --check --skip-tags tailscale master.yml
