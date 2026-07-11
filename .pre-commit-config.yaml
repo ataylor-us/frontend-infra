@@ -12,3 +12,15 @@ repos:
         entry: bash -c 'trufflehog git file://.'
         language: system
         stages: ["pre-commit", "pre-push"]
+  - repo: local
+    hooks:
+      - id: ansible-lint
+        name: ansible-lint
+        description: This hook runs ansible-lint.
+        entry: ansible-lint -v --force-color
+        language: python
+        language_version: python3.14
+        pass_filenames: false
+        always_run: true
+        additional_dependencies:
+          - ansible-core>=2.19.0
