@@ -5,9 +5,9 @@ immich_redis_version: "9@sha256:4963247afc4cd33c7d3b2d2816b9f7f8eeebab148d29056c
 # manually managed
 immich_postgres_version: "14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23"
 # renovate: datasource=docker depName=ghcr.io/immich-app/immich-server
-immich_server_version: "v3.0.2@sha256:14390f3dc9512dc3273b12ccee6363d9be16c388699abc3f3fe0498bb9829937"
+immich_server_version: "v3.0.3@sha256:c716dc20f957aafd89fa9d284a2ec63e25c9e2d8d8e87c6197d540a3dce237db"
 # renovate: datasource=docker depName=ghcr.io/immich-app/immich-machine-learning
-immich_ml_version: "v3.0.2@sha256:412f68e46e1966d0f87a8733a430369ee184b3a83e7b1e2db536dff291a34aa7"
+immich_ml_version: "v3.0.3@sha256:d76fe88b69282c09a97eac4f82dafa82cfd77bce274bc742591cde974f87dacb"
 immich_port: 2283
 immich_external_port: 10005
 immich_external_url: "https://{{ tailscale_domain }}:{{ immich_external_port }}"
