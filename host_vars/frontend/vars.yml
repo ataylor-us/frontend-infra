@@ -9,6 +9,14 @@ autofs_mounts:
     fstype: nfs
     remote: "nas.internal:/srv/nfs/immich-encoded-video"
     options: nfsvers=4,rw,hard,noatime,nodiratime
+  - name: immich-thumbs
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/immich-thumbs"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
+  - name: immich-backups
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/immich-backups"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
   - name: karakeep-assets
     fstype: nfs
     remote: "nas.internal:/srv/nfs/karakeep-assets"

@@ -84,6 +84,8 @@
       - "{{ podman_data_dir }}/immich-server:/usr/src/app/upload:rw,z"
       - "{{ podman_nfs_data_dir }}/immich-upload:/usr/src/app/upload/upload:rw"
       - "{{ podman_nfs_data_dir }}/immich-encoded-video:/usr/src/app/upload/encoded-video:rw"
+      - "{{ podman_nfs_data_dir }}/immich-thumbs:/usr/src/app/upload/thumbs:rw"
+      - "{{ podman_nfs_data_dir }}/immich-backups:/usr/src/app/upload/backups:rw"
     env:
       TZ: "{{ timezone }}"
       DB_PASSWORD: "{{ immich_database_password }}"

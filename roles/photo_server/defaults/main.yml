@@ -11,7 +11,11 @@ immich_ml_version: "v3.0.3@sha256:d76fe88b69282c09a97eac4f82dafa82cfd77bce274bc7
 immich_port: 2283
 immich_external_port: 10005
 immich_external_url: "https://{{ tailscale_domain }}:{{ immich_external_port }}"
-service_data_dir: "{{ podman_nfs_data_dir }}/immich-upload {{ podman_nfs_data_dir }}/immich-encoded-video"
+service_data_dir: >-
+  {{ podman_nfs_data_dir }}/immich-upload
+  {{ podman_nfs_data_dir }}/immich-encoded-video
+  {{ podman_nfs_data_dir }}/immich-thumbs
+  {{ podman_nfs_data_dir }}/immich-backups
 enabled_services:
   - immich-redis-container.service
   - immich-machine-learning-container.service
