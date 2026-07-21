@@ -31,7 +31,7 @@
       - "{{ forgejo_ssh_port }}:2222"
     volumes:
       - "{{ podman_data_dir }}/forgejo:/data:rw,z"
-      - "{{ podman_nfs_data_dir }}/forgejo-git:/data/git:rw"
+      - "{{ podman_nfs_data_dir }}/forgejo-git:/data/git:rw,slave"
       - /etc/localtime:/etc/localtime:ro,z
     labels:
       managed-by: ansible
