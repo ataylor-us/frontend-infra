@@ -23,9 +23,6 @@
     env:
       POSTGRES_PASSWORD: "{{ postgres_password }}"
       POSTGRES_INITDB_ARGS: --data-checksums
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for postgres

@@ -31,9 +31,6 @@
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/paperless-redis:/data:rw,z"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for paperless
@@ -50,9 +47,6 @@
       - gotenberg
       - --chromium-disable-javascript=true
       - --chromium-allow-list=file:///tmp/.*
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for paperless
@@ -65,9 +59,6 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-tika-container"
     network: "{{ default_podman_interface }}"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for paperless
@@ -112,9 +103,6 @@
       PAPERLESS_REDIRECT_LOGIN_TO_SSO: "true"
       # See comment in defaults
       PAPERLESS_SOCIALACCOUNT_PROVIDERS: "{{ paperless_socialaccount_providers | to_json }}"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for paperless

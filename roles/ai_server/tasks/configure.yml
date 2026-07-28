@@ -35,9 +35,6 @@
       OAUTH_PROVIDER_NAME: Authelia
       OAUTH_SCOPES: openid email profile
       OAUTH_CODE_CHALLENGE_METHOD: S256
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for open-webui

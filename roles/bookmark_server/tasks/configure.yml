@@ -27,9 +27,6 @@
       NEXTAUTH_SECRET: "{{ karakeep_nextauth_secret }}"
       MEILI_MASTER_KEY: "{{ karakeep_meili_master_key }}"
       NEXTAUTH_URL: http://localhost:3000
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for karakeep
@@ -49,9 +46,6 @@
       - --remote-debugging-address=0.0.0.0
       - --remote-debugging-port=9222
       - --hide-scrollbars
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for karakeep
@@ -89,9 +83,6 @@
       OAUTH_CLIENT_ID: karakeep
       OAUTH_CLIENT_SECRET: "{{ karakeep_oidc_client_secret }}"
       OAUTH_PROVIDER_NAME: Authelia
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for karakeep

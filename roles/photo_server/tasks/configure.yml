@@ -38,9 +38,6 @@
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/immich-redis:/data:rw,z"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -61,9 +58,6 @@
       POSTGRES_USER: postgres
       POSTGRES_DB: immich
       POSTGRES_INITDB_ARGS: --data-checksums
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -94,9 +88,6 @@
       DB_HOSTNAME: immich-postgres
       REDIS_HOSTNAME: immich-redis
       IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning:3003
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ nfs_quadlet_options }}"
   notify:
     - Reload systemd for immich
@@ -111,9 +102,6 @@
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/immich-machine-learning:/cache:rw,z"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     # This has a bundled healthcheck and (hung?) once, killing the container if it fails
     quadlet_options: "{{ default_quadlet_options + ['HealthCmd=python3 healthcheck.py', 'HealthOnFailure=kill', '[Unit]\nStartLimitBurst=10'] }}"
   notify:

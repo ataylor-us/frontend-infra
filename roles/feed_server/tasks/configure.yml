@@ -26,9 +26,6 @@
       OAUTH2_CLIENT_ID: miniflux
       OAUTH2_CLIENT_SECRET: "{{ miniflux_oauth2_client_secret }}"
       OAUTH2_REDIRECT_URL: "{{ miniflux_external_url }}/oauth2/oidc/callback"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for miniflux

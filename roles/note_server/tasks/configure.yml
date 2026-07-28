@@ -26,9 +26,6 @@
       MEMOS_DRIVER: postgres
       MEMOS_DSN: "postgres://{{ memos_db_user }}:{{ memos_db_password }}@{{ memos_db_host }}:5432/{{ memos_db_name }}?sslmode=disable"
       MEMOS_INSTANCE_URL: "{{ memos_external_url }}"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for memos

@@ -29,9 +29,6 @@
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/actual:/data:rw,z"
-    labels:
-      managed-by: ansible
-      part-of: "{{ project_name }}"
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for actual
