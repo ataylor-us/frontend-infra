@@ -25,6 +25,10 @@ autofs_mounts:
     fstype: nfs
     remote: "nas.internal:/srv/samba/paperless-consume"
     options: nfsvers=4,rw,hard,noatime,nodiratime
+  - name: paperless-media
+    fstype: nfs
+    remote: "nas.internal:/srv/nfs/paperless-media"
+    options: nfsvers=4,rw,hard,noatime,nodiratime
   - name: forgejo-git
     fstype: nfs
     remote: "nas.internal:/srv/nfs/forgejo-git"

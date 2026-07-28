@@ -76,7 +76,7 @@
     network: "{{ default_podman_interface }}"
     volumes:
       - "{{ podman_data_dir }}/paperless-server/data:/usr/src/paperless/data:rw,z"
-      - "{{ podman_data_dir }}/paperless-server/media:/usr/src/paperless/media:rw,z"
+      - "{{ podman_nfs_data_dir }}/paperless-media:/usr/src/paperless/media:rw"
       - "{{ podman_data_dir }}/paperless-server/export:/usr/src/paperless/export:rw,z"
       - "{{ podman_nfs_data_dir }}/paperless-consume:/usr/src/paperless/consume:rw,z,slave"
     env:

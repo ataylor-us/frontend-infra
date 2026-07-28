@@ -14,6 +14,7 @@ paperless_external_url: "https://{{ tailscale_domain }}:{{ paperless_external_po
 paperless_db_host: "{{ postgres_host }}"
 paperless_db_name: paperless
 paperless_db_user: paperless
+service_data_dir: "{{ podman_nfs_data_dir }}/paperless-media {{ podman_nfs_data_dir }}/paperless-consume"
 # "PAPERLESS_SOCIALACCOUNT_PROVIDERS" takes a monster json line:
 # https://www.authelia.com/integration/openid-connect/clients/paperless/
 # Writing it here, serializing with the to_json filter
