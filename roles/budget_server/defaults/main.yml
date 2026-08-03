@@ -4,7 +4,7 @@ actual_port: 5006
 actual_external_port: 10002
 actual_external_url: "https://{{ tailscale_domain }}:{{ actual_external_port }}"
 # renovate: datasource=docker depName=docker.io/actualbudget/actual-server
-actual_version: "latest@sha256:e18b7fbfec6157a368fad4146563f397502e9da70a120aeaeac63b4977405d1c"
+actual_version: "latest@sha256:0b300f370dba85a74998a953736a831bd931cc8cb76c0d8ceac3d3fd288dfd4d"
 enabled_services:
   - actual-container.service
   - caddy.service
