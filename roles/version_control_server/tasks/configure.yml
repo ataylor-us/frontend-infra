@@ -58,9 +58,7 @@
     group: caddy
     mode: "0644"
     owner: caddy
-  notify:
-    - Reload systemd for forgejo
-    - Restart forgejo
+  notify: Reload caddy
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
 - name: Copy borgmatic config

@@ -117,9 +117,7 @@
     group: caddy
     mode: "0644"
     owner: caddy
-  notify:
-    - Reload systemd for immich
-    - Restart immich
+  notify: Reload caddy
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
 - name: Copy borgmatic config
