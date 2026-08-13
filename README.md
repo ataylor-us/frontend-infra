@@ -11,7 +11,6 @@ Some of these services include:
 + [Miniflux](https://miniflux.app) - `feed_server`
 + [Karakeep](https://karakeep.app) - `bookmark_server`
 + [Forgejo](https://forgejo.org) - `version_control_server`
-+ [Home Assistant](https://www.home-assistant.io) - `home_automation_server`
 + [Memos](https://usememos.com/) - `note_server`
 + [Open WebUI](https://openwebui.com) - `ai_server`
 
