@@ -1,5 +1,4 @@
 ---
-project_name: mailrise
 packages:
   - msmtp
   - msmtp-mta
