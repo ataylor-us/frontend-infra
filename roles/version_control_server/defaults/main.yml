@@ -1,7 +1,7 @@
 ---
 project_name: forgejo
 # renovate: datasource=docker depName=codeberg.org/forgejo/forgejo
-forgejo_version: "16@sha256:2fdfe28b5c68f82f49580e227b84e2afb43af0250e0631a54a386ef3b1d9b759"
+forgejo_version: "16@sha256:7c4e1db440be7b2ca685b49d0d7864cdd78e92431f531bf7893659def8200fc5"
 forgejo_port: 13000
 forgejo_external_port: 10008
 forgejo_external_url: "https://{{ tailscale_domain }}:{{ forgejo_external_port }}"
