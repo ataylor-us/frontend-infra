@@ -41,10 +41,7 @@ Base packages:
 
 Firewall rules (& drift management) are handled externally by [OpenVox](https://voxpupuli.org/openvox/).
 
-## Manual Steps
+## Versions
 
-Because of recent supply chain attacks, I am taking the precaution to no longer use an AUR helper and am limiting my reliance on AUR packages.
+[Renovate](https://github.com/renovatebot/renovate) is used to make PRs for containers, Ansible Galaxy collections, and AUR packages.  Other updates are handled manually by the package manager.
 
-The following are built manually with `makepkg -si`, with the updated PKGBUILD reviewed before each build:
-
-+ [autofs](https://aur.archlinux.org/packages/autofs)
