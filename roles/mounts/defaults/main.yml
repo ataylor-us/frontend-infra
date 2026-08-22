@@ -4,7 +4,7 @@ packages:
   - cifs-utils
 aur_packages:
   - name: autofs
-    commit: 306f421ed6f3abaaa1c7d4b4b765362e3ac9fb47
+    commit: 0fc5ebc486f119cd4d43011afdaeae6b5facf890
 enabled_services:
   - autofs
 autofs_mounts: []
