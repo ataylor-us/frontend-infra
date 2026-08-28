@@ -47,6 +47,7 @@
     - role: ai_server
       tags: openwebui
     - role: geerlingguy.swap
+      become: true
       vars:
         swap_file_size_mb: '2048'
         swap_file_create_command: >-
