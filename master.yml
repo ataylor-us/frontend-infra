@@ -46,3 +46,9 @@
       tags: memos
     - role: ai_server
       tags: openwebui
+    - role: geerlingguy.swap
+      vars:
+        swap_file_size_mb: '2048'
+        swap_file_create_command: >-
+          btrfs filesystem mkswapfile --size {{ swap_file_size_mb }}m {{ swap_file_path }}
+      tags: swap
