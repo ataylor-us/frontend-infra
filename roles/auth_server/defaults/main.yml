@@ -1,7 +1,7 @@
 ---
 project_name: authelia
 # renovate: datasource=docker depName=docker.io/authelia/authelia
-authelia_version: "4.39.23@sha256:0b6409d5cfa1bc244812fa4094f0272421ac156b864ed4178c60480c3f6d3ee9"
+authelia_version: "4.39.24@sha256:8f428b06bb07bb978c10477527634f19ef3b049c9c87321fda14e24d8fc4c535"
 authelia_port: 9091
 authelia_external_port: 10010
 authelia_external_url: "https://{{ tailscale_domain }}:{{ authelia_external_port }}"
