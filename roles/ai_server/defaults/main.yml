@@ -4,7 +4,7 @@ openwebui_port: 18080
 openwebui_external_port: 10013
 openwebui_external_url: "https://{{ tailscale_domain }}:{{ openwebui_external_port }}"
 # renovate: datasource=docker depName=ghcr.io/open-webui/open-webui
-openwebui_version: "v0.11.4@sha256:9591b13f13843c7721c2b8eaf7382846c81b3ffe126526d1888d1fed50c6a33f"
+openwebui_version: "v0.12.0@sha256:1565038903151ced924b5a3226f73f40f16963df4b910441f6391f10144afdaa"
 openwebui_db_host: "{{ postgres_host }}"
 openwebui_db_name: openwebui
 openwebui_db_user: openwebui
