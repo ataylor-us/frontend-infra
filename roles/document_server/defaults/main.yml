@@ -7,7 +7,7 @@ paperless_server_version: "3.3.2@sha256:d232cba37cc0bab0d6c6581ecd320383b7a6f49f
 # renovate: datasource=docker depName=docker.io/gotenberg/gotenberg
 paperless_gotenberg_version: "8.38@sha256:aa552cc115db488e0f0bcb07446aac13071ad51505b642c84bb894500907b42b"
 # renovate: datasource=docker depName=docker.io/apache/tika
-paperless_tika_version: "latest@sha256:06bcdbd09aca073293e5a171ad161418cc93c91d58d9e4e205064eade84889d4"
+paperless_tika_version: "3.3.1.0@sha256:90b7fa1dc018434075fce9e1d9b88b1e3d0ea6979d0cf86e116c79a8073ae973"
 paperless_port: 8000
 paperless_external_port: 10007
 paperless_external_url: "https://{{ tailscale_domain }}:{{ paperless_external_port }}"
