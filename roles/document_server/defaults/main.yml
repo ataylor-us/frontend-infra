@@ -3,7 +3,7 @@ project_name: paperless
 # renovate: datasource=docker depName=docker.io/library/redis
 paperless_redis_version: "8@sha256:4764ce37931aac77c0d033680b339b19b4a4a81772204d268947cb851212d0ac"
 # renovate: datasource=docker depName=ghcr.io/paperless-ngx/paperless-ngx
-paperless_server_version: "3.3.4@sha256:9bc6e8248891bcfa6f52fffe8b81e4ea8cae75790c3ec1b9906961a7ba55c969"
+paperless_server_version: "3.4.0@sha256:7c1d98afd200def9e2bad3a377d30829e8d486554b3c818995af5860114ea17f"
 # renovate: datasource=docker depName=docker.io/gotenberg/gotenberg
 paperless_gotenberg_version: "8.38@sha256:aa552cc115db488e0f0bcb07446aac13071ad51505b642c84bb894500907b42b"
 # renovate: datasource=docker depName=docker.io/apache/tika
