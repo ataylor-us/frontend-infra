@@ -44,8 +44,6 @@
       tags: authelia
     - role: note_server
       tags: memos
-    - role: ai_server
-      tags: openwebui
     - role: geerlingguy.swap
       become: true
       vars:
