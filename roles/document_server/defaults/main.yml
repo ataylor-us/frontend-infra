@@ -5,7 +5,7 @@ paperless_redis_version: "8@sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d
 # renovate: datasource=docker depName=ghcr.io/paperless-ngx/paperless-ngx
 paperless_server_version: "3.4.2@sha256:d704e84f88300eb6ab001ab15720a2330ff99169cf9f94d6b8fcc44b63a84c84"
 # renovate: datasource=docker depName=docker.io/gotenberg/gotenberg
-paperless_gotenberg_version: "8.38@sha256:aa552cc115db488e0f0bcb07446aac13071ad51505b642c84bb894500907b42b"
+paperless_gotenberg_version: "9.1@sha256:150c1dec38ccb51905f6bd29442706668f2442fb5d290d9eb234708dc054dd1a"
 # renovate: datasource=docker depName=docker.io/apache/tika
 paperless_tika_version: "3.3.3.0@sha256:326b238b37904c94ff61fed87afe0af72e6a29fa715933b10af97b7d56f1d4cb"
 paperless_port: 8000
