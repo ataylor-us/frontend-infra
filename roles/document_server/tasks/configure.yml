@@ -46,7 +46,7 @@
     command:
       - gotenberg
       - --chromium-disable-javascript=true
-      - --chromium-allow-list=file:///tmp/.*
+      - --chromium-allow-list=^file:///tmp/.*
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for paperless

@@ -21,6 +21,16 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/roles/.+/defaults/main\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "# renovate-upstream: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n# renovate:[^\\n]*\\n\\w+_version:\\s*[\"']?(?<currentValue>[^@\"'\\s]+)"
+      ],
+      "versioningTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/roles/.+/defaults/main\\.ya?ml$/",
         "/(^|/)(group_vars|host_vars)/.+\\.ya?ml$/"
       ],
@@ -34,7 +44,22 @@
       "datasourceTemplate": "git-refs"
     }
   ],
+  "customDatasources": {
+    "paperless-compose": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/docker/compose/docker-compose.postgres-tika.yml",
+      "format": "yaml",
+      "transformTemplates": [
+        "{\"releases\": [{\"version\": $split(services.{{packageName}}.image, \":\")[-1]}]}"
+      ]
+    }
+  },
   "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/gotenberg/gotenberg", "docker.io/apache/tika"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "enabled": false
+    },
     {
       "matchDatasources": ["git-refs"],
       "matchPackageNames": ["/^https://aur\\.archlinux\\.org//"],
