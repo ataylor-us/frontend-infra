@@ -19,7 +19,8 @@
       CREATE_ADMIN: "1"
       ADMIN_USERNAME: admin
       ADMIN_PASSWORD: "{{ miniflux_admin_password }}"
-      DISABLE_LOCAL_AUTH: "true"
+      # Enabling local auth as well for ReadKit compatibility
+      DISABLE_LOCAL_AUTH: "false"
       OAUTH2_PROVIDER: oidc
       OAUTH2_OIDC_PROVIDER_NAME: Authelia
       OAUTH2_OIDC_DISCOVERY_ENDPOINT: "{{ authelia_external_url }}"
