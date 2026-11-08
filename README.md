@@ -11,7 +11,6 @@ Some of these services include:
 + [Miniflux](https://miniflux.app) - `feed_server`
 + [Karakeep](https://karakeep.app) - `bookmark_server`
 + [Forgejo](https://forgejo.org) - `version_control_server`
-+ [Memos](https://usememos.com/) - `note_server`
 
 ## Auth
 [lldap](https://github.com/lldap/lldap) + [Authelia](https://www.authelia.com/) is used for 2FA/SSO when possible.

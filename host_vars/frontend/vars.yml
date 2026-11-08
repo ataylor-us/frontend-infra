@@ -47,8 +47,6 @@ authelia_oidc_hmac_secret: "{{ lookup('community.general.passwordstore', 'Reposi
 authelia_oidc_jwks_key: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/authelia_oidc_jwks_key', returnall=true) }}"
 actual_oidc_client_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/actual_oidc_client_secret') }}"
 actual_oidc_client_secret_hash: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/actual_oidc_client_secret_hash') }}"
-memos_db_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/memos_db_password') }}"
-memos_oidc_client_secret_hash: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/memos_oidc_client_secret_hash') }}"
 miniflux_db_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/miniflux_db_password') }}"
 miniflux_admin_password: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/miniflux_admin_password') }}"
 miniflux_oauth2_client_secret: "{{ lookup('community.general.passwordstore', 'Repositories/frontend-infra/miniflux_oauth2_client_secret') }}"
