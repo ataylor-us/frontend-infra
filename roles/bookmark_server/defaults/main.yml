@@ -3,8 +3,9 @@ project_name: karakeep
 karakeep_port: 3000
 karakeep_external_port: 10006
 karakeep_external_url: "https://{{ tailscale_domain }}:{{ karakeep_external_port }}"
+# renovate-upstream: datasource=custom.karakeep-compose depName=meilisearch
 # renovate: datasource=docker depName=docker.io/getmeili/meilisearch
-karakeep_meilisearch_version: "v1.56.1@sha256:b7ba431bf6f9b26cc86132798f3640964147a699cf23f026b74c6c05dbb1d60d"
+karakeep_meilisearch_version: "v1.55.0@sha256:ff546679970126f8822e15d1b6a06bfbff1f2ce2e43f810cfb5258012f92de5c"
 # renovate: datasource=docker depName=ghcr.io/karakeep-app/karakeep
 karakeep_server_version: "0.34.1@sha256:69ae5315c618b7c14c1af3e34c6e211acdb231793af424ecd1cab0b70691d987"
 # renovate: datasource=docker depName=ghcr.io/karakeep-app/karakeep-chrome
