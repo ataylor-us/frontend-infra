@@ -1,0 +1,13 @@
+---
+project_name: vaultwarden
+vaultwarden_port: 8222
+vaultwarden_external_port: 10012
+vaultwarden_external_url: "https://{{ tailscale_domain }}:{{ vaultwarden_external_port }}"
+# renovate: datasource=docker depName=docker.io/vaultwarden/server
+vaultwarden_version: "1.37.5@sha256:4fe17f415f90087377d37c755e0ea3cf189dcc6794e49cdd2a9adbb4937d9e1f"
+vaultwarden_db_host: "{{ postgres_host }}"
+vaultwarden_db_name: vaultwarden
+vaultwarden_db_user: vaultwarden
+enabled_services:
+  - vaultwarden-container.service
+  - caddy.service

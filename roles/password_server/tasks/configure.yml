@@ -1,0 +1,53 @@
+---
+- name: Create data directory
+  become: true
+  ansible.builtin.file:
+    group: root
+    mode: "0700"
+    owner: root
+    path: "{{ podman_data_dir }}/vaultwarden"
+    state: directory
+- name: Create a Quadlet file for vaultwarden
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: vaultwarden
+    image: docker.io/vaultwarden/server:{{ vaultwarden_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-container"
+    network: "{{ default_podman_interface }}"
+    ports:
+      - 127.0.0.1:{{ vaultwarden_port }}:80
+    volumes:
+      - "{{ podman_data_dir }}/vaultwarden:/data:rw,z"
+    env:
+      TZ: "{{ timezone }}"
+      DOMAIN: "{{ vaultwarden_external_url }}"
+      DATABASE_URL: "postgresql://{{ vaultwarden_db_user }}:{{ vaultwarden_db_password }}@{{ vaultwarden_db_host }}:5432/{{ vaultwarden_db_name }}"
+      SIGNUPS_ALLOWED: "false"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for vaultwarden
+    - Restart vaultwarden
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
+    group: caddy
+    mode: "0644"
+    owner: caddy
+  notify: Reload caddy
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2
