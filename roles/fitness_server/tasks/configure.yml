@@ -1,0 +1,78 @@
+---
+- name: Create data directory
+  become: true
+  ansible.builtin.file:
+    group: root
+    mode: "0700"
+    owner: root
+    path: "{{ podman_data_dir }}/opengym"
+    state: directory
+- name: Get podman network info
+  become: true
+  containers.podman.podman_network_info:
+    name: "{{ default_podman_interface }}"
+  register: opengym_network
+- name: Create a Quadlet file for opengym-api
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: opengym-api
+    image: ghcr.io/duartesantos8/opengym-api:{{ opengym_api_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-api-container"
+    network: "{{ default_podman_interface }}"
+    volumes:
+      - "{{ podman_data_dir }}/opengym:/data:rw,z"
+    env:
+      TZ: "{{ timezone }}"
+      DATA_DIR: /data
+      RP_ID: "{{ tailscale_domain }}"
+      RP_NAME: openGym
+      ORIGIN: "{{ opengym_external_url }}"
+      TRUST_PROXY: "1"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for opengym
+    - Restart opengym
+- name: Create a Quadlet file for opengym-web
+  become: true
+  no_log: true
+  containers.podman.podman_container:
+    name: opengym-web
+    image: ghcr.io/duartesantos8/opengym-web:{{ opengym_web_version }}
+    state: quadlet
+    quadlet_filename: "{{ project_name }}-web-container"
+    network: "{{ default_podman_interface }}"
+    ports:
+      - 127.0.0.1:{{ opengym_port }}:8080
+    env:
+      NGINX_PORT: "8080"
+      BACKEND: opengym-api
+      # The bundled nginx ignores resolv.conf, point it at the podman DNS
+      RESOLVER: "{{ opengym_network.networks[0].subnets[0].gateway }}"
+    quadlet_options: "{{ default_quadlet_options }}"
+  notify:
+    - Reload systemd for opengym
+    - Restart opengym
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Generate Caddyfile
+  become: true
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "/etc/caddy/conf.d/{{ project_name }}.Caddyfile"
+    group: caddy
+    mode: "0644"
+    owner: caddy
+  notify: Reload caddy
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+- name: Copy borgmatic config
+  become: true
+  ignore_errors: true
+  ansible.builtin.template:
+    dest: "/etc/borgmatic.d/{{ project_name }}.yaml"
+    group: root
+    mode: "0600"
+    owner: root
+    src: config.yaml.j2

@@ -1,0 +1,13 @@
+---
+project_name: opengym
+opengym_port: 8223
+opengym_external_port: 10013
+opengym_external_url: "https://{{ tailscale_domain }}:{{ opengym_external_port }}"
+# renovate: datasource=docker depName=ghcr.io/duartesantos8/opengym-api
+opengym_api_version: "1.4.4@sha256:7508ecca4ae16a917e6e58e3fd40961fbdf7d5fbfc54b7e6f434f741ddf41402"
+# renovate: datasource=docker depName=ghcr.io/duartesantos8/opengym-web
+opengym_web_version: "1.4.4@sha256:33575782762f6cc9181f5e33616d55bf718bcd56338b714f22cb5d01e1adc278"
+enabled_services:
+  - opengym-api-container.service
+  - opengym-web-container.service
+  - caddy.service

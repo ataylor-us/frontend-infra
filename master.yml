@@ -42,6 +42,8 @@
       tags: lldap
     - role: password_server
       tags: vaultwarden
+    - role: fitness_server
+      tags: opengym
     - role: auth_server
       tags: authelia
     - role: geerlingguy.swap
