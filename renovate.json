@@ -68,6 +68,11 @@
       "enabled": false
     },
     {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/duartesantos8/opengym-*"],
+      "groupName": "opengym"
+    },
+    {
       "matchDatasources": ["git-refs"],
       "matchPackageNames": ["/^https://aur\\.archlinux\\.org//"],
       "matchUpdateTypes": ["digest"],
