@@ -43,6 +43,10 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-web-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
     ports:
       - 127.0.0.1:{{ opengym_port }}:8080
     env:

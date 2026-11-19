@@ -29,6 +29,18 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-redis-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETPCAP
+      - SETUID
     volumes:
       - "{{ podman_data_dir }}/paperless-redis:/data:rw,z"
     quadlet_options: "{{ default_quadlet_options }}"
@@ -43,6 +55,10 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-gotenberg-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
     command:
       - gotenberg
       - --chromium-disable-javascript=true
@@ -59,6 +75,10 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-tika-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
     quadlet_options: "{{ default_quadlet_options }}"
   notify:
     - Reload systemd for paperless
@@ -74,6 +94,17 @@
     ports:
       - 127.0.0.1:{{ paperless_port }}:8000
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     volumes:
       - "{{ podman_data_dir }}/paperless-server/data:/usr/src/paperless/data:rw,z"
       - "{{ podman_nfs_data_dir }}/paperless-media:/usr/src/paperless/media:rw,slave"

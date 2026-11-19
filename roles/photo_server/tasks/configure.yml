@@ -36,6 +36,17 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-redis-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     volumes:
       - "{{ podman_data_dir }}/immich-redis:/data:rw,z"
     quadlet_options: "{{ default_quadlet_options }}"
