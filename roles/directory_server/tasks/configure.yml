@@ -19,6 +19,17 @@
       - 127.0.0.1:{{ lldap_web_port }}:17170
       - 127.0.0.1:{{ lldap_ldap_port }}:3890
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     volumes:
       - "{{ podman_data_dir }}/lldap:/data:rw,z"
     env:

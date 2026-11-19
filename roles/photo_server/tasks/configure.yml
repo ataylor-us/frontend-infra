@@ -36,6 +36,17 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-redis-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     volumes:
       - "{{ podman_data_dir }}/immich-redis:/data:rw,z"
     quadlet_options: "{{ default_quadlet_options }}"
@@ -51,6 +62,17 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-postgres-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     volumes:
       - "{{ podman_data_dir }}/immich-postgres:/var/lib/postgresql/data:rw,z"
     env:
@@ -73,6 +95,14 @@
     ports:
       - 127.0.0.1:{{ immich_port }}:2283
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
     volumes:
       - /etc/localtime:/etc/localtime:ro,z
       - "{{ podman_data_dir }}/immich-server:/usr/src/app/upload:rw,z"
@@ -100,6 +130,14 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-machine-learning-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
     volumes:
       - "{{ podman_data_dir }}/immich-machine-learning:/cache:rw,z"
     # This has a bundled healthcheck and (hung?) once, killing the container if it fails

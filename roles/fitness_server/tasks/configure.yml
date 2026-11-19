@@ -21,6 +21,15 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-api-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - NET_BIND_SERVICE
     volumes:
       - "{{ podman_data_dir }}/opengym:/data:rw,z"
     env:
@@ -43,6 +52,10 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-web-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
     ports:
       - 127.0.0.1:{{ opengym_port }}:8080
     env:

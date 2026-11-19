@@ -27,6 +27,10 @@
     ports:
       - 127.0.0.1:{{ actual_port }}:5006
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
     volumes:
       - "{{ podman_data_dir }}/actual:/data:rw,z"
     quadlet_options: "{{ default_quadlet_options }}"

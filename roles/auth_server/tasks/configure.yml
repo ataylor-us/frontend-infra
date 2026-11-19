@@ -27,6 +27,17 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     ports:
       - 127.0.0.1:{{ authelia_port }}:9091
     volumes:

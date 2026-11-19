@@ -19,6 +19,14 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-meilisearch-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
     volumes:
       - "{{ podman_data_dir }}/karakeep-meilisearch:/meili_data:rw,z"
     env:
@@ -39,6 +47,10 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-chrome-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
     init: true
     command:
       - --disable-gpu
@@ -59,6 +71,17 @@
     state: quadlet
     quadlet_filename: "{{ project_name }}-server-container"
     network: "{{ default_podman_interface }}"
+    security_opt:
+      - no-new-privileges
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - KILL
+      - SETGID
+      - SETUID
     ports:
       - 127.0.0.1:{{ karakeep_port }}:3000
     stop_time: 30
