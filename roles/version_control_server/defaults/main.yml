@@ -5,7 +5,6 @@ forgejo_version: "17@sha256:879f4f10a98e3e167b32cde5f7ae3af0163d50bfacf567559a27
 forgejo_port: 13000
 forgejo_external_port: 10008
 forgejo_external_url: "https://{{ tailscale_domain }}:{{ forgejo_external_port }}"
-forgejo_ssh_port: 222
 forgejo_db_host: "{{ postgres_host }}"
 forgejo_db_name: gitea
 forgejo_db_user: gitea
