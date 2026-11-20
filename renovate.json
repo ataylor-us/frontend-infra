@@ -69,6 +69,11 @@
     },
     {
       "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/postgres"],
+      "allowedVersions": "<19"
+    },
+    {
+      "matchDatasources": ["docker"],
       "matchPackageNames": ["ghcr.io/duartesantos8/opengym-*"],
       "groupName": "opengym"
     },
