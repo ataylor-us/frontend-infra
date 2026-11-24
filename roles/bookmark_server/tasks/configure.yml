@@ -95,7 +95,14 @@
       NEXTAUTH_URL: "{{ karakeep_external_url }}"
       MEILI_ADDR: http://karakeep-meilisearch:7700
       BROWSER_WEB_URL: http://karakeep-chrome:9222
-      OPENAI_API_KEY: "{{ karakeep_openai_key }}"
+      OPENAI_API_KEY: ollama
+      OPENAI_BASE_URL: http://gamepc.internal:11434/v1
+      INFERENCE_TEXT_MODEL: qwen3:14b
+      INFERENCE_JOB_TIMEOUT_SEC: 120
+      EMBEDDING_TEXT_MODEL: embeddinggemma:300m
+      EMBEDDING_DIMENSIONS: 768
+      EMBEDDING_CONTEXT_LENGTH: 2048
+      EMBEDDING_ENABLE_AUTO_INDEXING: "true"
       DATA_DIR: /data
       CRAWLER_FULL_PAGE_SCREENSHOT: "true"
       CRAWLER_FULL_PAGE_ARCHIVE: "true"
