@@ -9,7 +9,7 @@ karakeep_meilisearch_version: "v1.55.0@sha256:ff546679970126f8822e15d1b6a06bfbff
 # renovate: datasource=docker depName=ghcr.io/karakeep-app/karakeep
 karakeep_server_version: "0.35.0@sha256:6f7d32ef296ddf1fc7c67ff56b8a201b7006a6a47b92b202afee1338841b353d"
 # renovate: datasource=docker depName=ghcr.io/karakeep-app/karakeep-chrome
-karakeep_chrome_version: "157.0.8103.78-r1@sha256:00fb4fa9c37aa74c58e74d0bdd16c4e3b81dddb5f264917c879f9579c3b3ad95"
+karakeep_chrome_version: "158.0.8127.88-r1@sha256:4f23c2630fbcea09c4a8a5272490855f2dd25686017ab379fbec78615782782d"
 service_data_dir: "{{ podman_nfs_data_dir }}/karakeep-assets"
 enabled_services:
   - karakeep-server-container.service
